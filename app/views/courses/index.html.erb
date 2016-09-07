@@ -1,0 +1,50 @@
+<% content_for(:body_attributes) do %>
+  data-no-turbolink="true"
+  <% end %>
+<p id="notice"><%= notice %></p>
+<div class="pull-right">
+  <div class="btn-group btn-group-sm" role="group" aria-label="...">
+    <%= link_to 'new course', new_course_path, class: "btn btn-default" %>
+  </div>
+</div>
+<h1>Angebotene Kurse</h1>
+<div class="clearfix"></div>
+<% @courses.each do |course| %>
+  <div class="panel panel-default">
+    <div class="panel-heading"><%= course.title %>  <%= glink_to '','plus', new_course_path if can? current_user, :manage, course %> <%= glink_to '','pencil', edit_course_path(course) if can? current_user, :manage, course %> <%= glink_to '','trash', course, method: :delete, 'data-no-turbolink' => true, data: { confirm: 'Are you sure?' } if can? current_user, :manage, course %></div>
+    <div class="panel-body">
+      <h3 class="subtitle"><%= course.subtitle %></h3>
+      <dl class="dl-horizontal">
+        <dt>Beginn</dt>
+        <dd><%= course.begin %></dd>
+        <dt>Ende</dt>
+        <dd><%= course.termination %></dd>
+      </dl>
+      <h4 class="underlined">Beschreibung</h4>
+      <%= markdown(course.description) %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="btn-group btn-group-sm pull-right" role="group" aria-label="...">
+            <% if current_user.subscribed?(course) %>
+              <%= link_to 'austragen', unsubscribe_course_path(course),
+            data: {'no-turbolink'=> true, 
+              'confirm-title'=> 'Austragen',
+              'confirm' => 'Wirklich aus dem Kurs austragen? Alle Übungsserien-Submission können verloren gehen!', 
+              'confirm-proceed'=> 'austragen!', 
+              'confirm-cancel' => 'Ich bleibe doch!' }, 
+            :class => "btn btn-default" %>
+            <% else %>
+              <%= link_to 'einschreiben', subscribe_course_path(course), :class => "btn btn-default" %>
+            <% end %>
+            <% if can? current_user, :see, course  %>
+              <%= link_to 'Anzeigen', course, :class => "btn btn-primary" %>
+            <% end %>
+            <% if can? current_user, :manage, course  %>
+              <%= link_to 'Statistiken', stats_course_path(course), :class => "btn btn-default" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

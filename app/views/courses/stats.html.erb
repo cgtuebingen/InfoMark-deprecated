@@ -1,0 +1,197 @@
+<% # cache("stats", :expires_in => 30.minutes) do 
+%>
+<h1>Statistiken</h1>
+<%
+current_course = @course
+all_exercises  = ExerciseSheet.where(course: current_course).where("duedate < ?" , Time.now).order(:order)
+all_tasks      = ExerciseTask.where(exercise_sheet_id: all_exercises.pluck(:id)).order(:exercise_sheet_id,:order).pluck(:id)
+@all_students   = User.where(id: Enrollment.where(course:  current_course, role: 0).pluck(:user_id)).paginate(:page => params[:page], :per_page => 70)
+%>
+<button class="btn btn-default change" data-type="percent">%</button>
+<button class="btn btn-default change" data-type="abs">abs</button>
+<button class="btn btn-default change" data-type="log">log</button>
+<table id="points_table" class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>First Name</th>
+      <% all_exercises.each do |sheet| %>
+        <th colspan="<%= sheet.exercise_tasks.count+1 %>">Blatt <%= sheet.order %></th>
+      <% end %>
+      <th>&sum;</th>
+      <th>&sum; (rel.)</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <% all_exercises.each do |sheet| %>
+        <% sheet.exercise_tasks.each do |task| %>
+          <th data-max-points="<%= task.max_points %>">A <%= task.order %></th>
+        <% end %>
+        <th>&sum;</th>
+      <% end %>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @all_students.each do |student| %>
+      <tr>
+        <td><%= student.id %></td>
+        <td><%= student.name %></td>
+        <% sheet_sum = 0%>
+        <% sheet_max = 0%>
+        <% sheet_relmax = 0%>
+        <% sheet_relsum = 0%>
+        <% all_exercises.each do |sheet| %>
+          <% task_sum = 0%>
+          <% task_max = 0%>
+          <% sheet.exercise_tasks.each do |task| %>
+            <% task_max = task_max + task.max_points %>
+            <% latest_submission = Submission.where(user_id: student.id, exercise_task_id: task.id).order(id: :desc).first
+          unless latest_submission.nil?
+           current_grading = Grading.where(submission_id: latest_submission.id).first
+
+
+           private_status = false
+           if latest_submission.status == "finished"
+            unless latest_submission.private_log.nil?
+              unless latest_submission.private_log.empty?
+                if latest_submission.private_log.include?("testpassed=\\\"false\\\"")
+                  private_status = false
+                else
+                  private_status = true
+                end
+              else
+                private_status = false
+              end
+            else
+              private_status = false
+            end
+           end
+
+           public_status = false
+           if latest_submission.status == "finished"
+            unless latest_submission.log.nil?
+              unless latest_submission.log.empty?
+                if latest_submission.log.include?("testpassed=\\\"false\\\"")
+                  public_status = false
+                else
+                  public_status = true
+                end
+              else
+                public_status = false
+              end
+            else
+              public_status = false
+            end
+           end
+
+
+           
+           %>
+            <% unless current_grading.nil? %>
+              <% task_sum = task_sum + current_grading.points %>
+              <td data-sid="<%= latest_submission.id %>" data-private="<%= private_status %>" data-public="<%= public_status %>" data-points="<%= current_grading.points %>" max-points="<%= task.max_points %>" ><%= current_grading.points %></td>
+            <% else %>
+              <td data-sid="<%= latest_submission.id %>" data-private="<%= private_status %>" data-public="<%= public_status %>" data-points="0" max-points="<%= task.max_points %>">0</td>
+            <% end %>
+            <%
+         else
+          %>
+            <td data-private="bad" data-public="bad"data-points="0" max-points="<%= task.max_points %>">0</td>
+          <% end
+         %>
+        <% end %>
+        <td data-points="<%= task_sum %>" max-points="<%= task_max %>"><%= task_sum %></td>
+        <% sheet_sum = sheet_sum + task_sum %>
+        <% sheet_max = sheet_max + task_max %>
+        <% if task_sum > 0
+        sheet_relmax = sheet_relmax + task_max
+        sheet_relsum = sheet_relsum + task_sum
+        end %>
+      <% end %>
+      <td data-points="<%= sheet_sum %>"  max-points="<%= sheet_max %>"><%= sheet_sum %></td>
+      <td data-points="<%= sheet_relsum %>"  max-points="<%= sheet_relmax %>"><%= sheet_relsum %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+<%= will_paginate @all_students %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.26.2/js/jquery.tablesorter.min.js"></script>
+<style type="text/css">
+  .good-points{background-color: rgb(210, 249, 212) !important;}
+  .bad-points{background-color: rgb(255, 230, 230) !important;}
+  .empty{color: rgb(197, 197, 197) ;}
+  tr:hover{
+    border-color:#31708F !important;
+  }
+</style>
+<script type="text/javascript">
+  $(document).on('ready page:change', function() {
+      $("#points_table").tablesorter();
+
+      $('td[data-points]').each(function(index) {
+          if ($(this).attr("max-points") == 0) {
+              $(this).addClass("empty");
+          } else {
+              current_points = parseFloat($(this).attr("data-points"));
+              max_points = parseFloat($(this).attr("max-points"));
+              value = (current_points / max_points * 100);
+              if (value > 50) {
+                  $(this).addClass("good-points");
+              } else {
+                  $(this).addClass("bad-points");
+
+              }
+          }
+      });
+
+      $(".change").click(function() {
+          if ($(this).attr("data-type") == "percent") {
+              $('td[data-points]').each(function(index) {
+                  value = 0;
+                  if ($(this).attr("max-points") == 0) {
+                      value = 100;
+                  } else {
+                      current_points = parseFloat($(this).attr("data-points"));
+                      max_points = parseFloat($(this).attr("max-points"));
+                      value = (current_points / max_points * 100);
+                  }
+                  $(this).html((value.toFixed(2)) + '');
+              });
+          } 
+          if ($(this).attr("data-type") == "abs") {
+              $('td[data-points]').each(function(index) {
+                  $(this).html($(this).attr("data-points"));
+              });
+          }
+          if ($(this).attr("data-type") == "log") {
+              $('td[data-points]').each(function(index) {
+                if($(this).attr("data-sid")){
+
+                  var str = "";
+                  if($(this).attr("data-public") == "true"){
+                    str += '<i class="glyphicon glyphicon-ok" style="color:#66B80B;" aria-hidden="true"></i>';
+                  }else{
+                    str += '<i class="glyphicon glyphicon-remove" style="color:#EB313F;" aria-hidden="true"></i>';
+                  }
+
+                  if($(this).attr("data-private") == "true"){
+                    str += '(<i class="glyphicon glyphicon-ok" style="color:#66B80B;" aria-hidden="true"></i>)';
+                  }else{
+                    str += '(<i class="glyphicon glyphicon-remove" style="color:#EB313F;" aria-hidden="true"></i>)';
+                  }
+
+                  $(this).html(str);
+                }
+              });
+          }
+
+      });
+  });
+</script>
+<% 
+#end 
+%>
+

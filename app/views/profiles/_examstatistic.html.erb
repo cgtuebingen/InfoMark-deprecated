@@ -1,0 +1,29 @@
+<% if course.show_exam_approval == true %>
+  <p>Deine Klausurergebnisse</p>
+  <ul>
+    <% course.exams.each do |exam| %>
+      <% e_g = ExamGrade.find_by(user: user, exam: exam) 
+         e_p = points_in_course(user, course)
+         dos = true
+      %>
+        <li><%= exam.title %>:<br>
+          <% unless exam.bonus.nil? %>
+            <% bb = Hash[*exam.bonus.split(",")].map{ |k,v| [k.to_i, v.to_f]}.sort.reverse%>
+            <% bb.each do |b| %>
+            <% if (e_p.to_f >= b[0].to_f) and dos %>
+              <span class="green">angewendeter Bonus von <%= b[1] %> ab <%= b[0] %> Punkten</span><br>
+              <% dos = false %>
+            <% else %>
+              <s class="red">Bonus von <%= b[1] %> ab <%= b[0] %> Punkten</s><br>
+            <% end %>
+            <% end %>
+          <% end %>
+      <% if e_g.nil? or e_g.points.nil? or e_g.mark.nil? %>
+          keine Ergebnisse bisher veröffentlicht
+      <% else %>
+            <%= e_g.points %> Punkte ergibt Note <b><%=e_g.mark %></b>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>

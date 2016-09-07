@@ -1,0 +1,20 @@
+
+<% provide(:title, 'Resend confirmation instructions') %>
+<div class="card bg-white">
+  <div class="card-content">
+    <h2>Freischalt-Mail senden</h2>
+    <%= bootstrap_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="field">
+    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %> 
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Freischalt-Mail zusenden" %>
+  </div>
+<% end %>
+  </div>
+</div>
+<div class="additional-info">
+  <%= render "devise/shared/links" %>
+</div>

@@ -1,0 +1,12 @@
+<h3>create group</h3>
+<%= 
+#bootstrap_form_for(@current_group, url: groups_path(@current_group)) do |f| 
+bootstrap_form_for([@current_course, @current_group], url: course_groups_path([@current_course, @current_group])) do |f| 
+  %>
+
+<%= f.text_area :info, :class => "markdown-area" , :data => {:lang => 'markdown'} %>
+<%= f.hidden_field :course_id %>
+<% @col = Enrollment.where.not(role: 0) %>
+<%= f.select :user_id, tutorlist_for_course(@current_course) , label: "tutor" %>
+<%= f.submit "update group"  %>
+<% end %>

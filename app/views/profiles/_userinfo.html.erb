@@ -1,0 +1,16 @@
+<div class="row">
+  <aside class="col-md-6">
+    <section class="user_info">
+      <div style="float:left"><%= gravatar_for @user %></div>
+      <div style="float:left">
+        <h1><%= @user.name %></h1>
+        <%= @user.email %></div>
+      <div class="pull-right">
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+          <%= link_to "bearbeiten", edit_user_registration_path, :class => "btn btn-default" if can?(current_user, :edit_user, @user) %>
+        </div>
+      </div>
+      <div style="clear:both;"></div>
+    </section>
+  </aside>
+</div>

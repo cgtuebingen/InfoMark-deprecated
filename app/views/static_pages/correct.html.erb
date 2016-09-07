@@ -1,0 +1,138 @@
+<hr style="border:5px dashed red;">
+Tutor-Blätter
+
+<h1>meine Übungsgruppen</h1>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Studenten</h3>
+    <table class="table table-striped">
+      <tr>
+        <td>John Doe</td>
+      </tr>
+      <tr>
+        <td>Max Mustermann</td>
+      </tr>
+      <tr>
+        <td>Meier Schulze</td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h3>Blätter</h3>
+    <table class="table table-striped">
+      <tr>
+        <td><a href="#">Blatt 0</a></td>
+      </tr>
+      <tr>
+        <td><a href="#">Blatt 1</a></td>
+      </tr>
+      <tr>
+        <td><a href="#">Blatt 2</a></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<hr style="border:5px dashed red;">
+<h1>Blatt x <small>für meine Gruppe</small></h1>
+<h3>verfügbare Abgaben</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Task 1</th>
+      <th>Task 2</th>
+      <th>Task 3</th>
+    </tr>
+  </thead>
+  <tr>
+    <td><a href="#">John Doe</a></td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="#">Max Mustermann</a></td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><a href="#">Meier Schulze</a></td>
+    <td>2</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<hr style="border:5px dashed red;">
+<h1>Aufabe 1 <small>für meine Gruppe</small></h1>
+<p><a hef="#">Aufgabe 2</a> <a hef="#">Aufgabe 3</a></p>
+
+<div style="font-size: 2em; margin-bottom:15px;">
+  <%= glink_to "alle Abgaben downloaden", 'cloud-download', "#" %>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">John Doe</h3>
+  </div>
+  <div class="panel-body">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Aufgabe 1a) </h3>
+      </div>
+      <div class="panel-body">
+        <form>
+          <div class="form-group">
+            <label class="control-label" for="inputSuccess1">manuelles Feedback</label>
+            <textarea class="form-control" rows="6"></textarea>
+          </div>
+          <div class="form-inline" style="margin-bottom:15px;">
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" class="form-control" id="exampleInputAmount" placeholder="errecihte Punkte">
+                <div class="input-group-addon">von 50 Punkten</div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Bewertung abschließen</button>
+          </div>
+          <div class="form-group">
+            <pre>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna 
+                aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no 
+                sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam 
+                nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo 
+                duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                
+              </pre>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Aufgabe 1b) </h3>
+      </div>
+      <div class="panel-body">
+        Panel content
+  </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Aufgabe 1c) </h3>
+      </div>
+      <div class="panel-body">
+        Panel content
+  </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Max Mustermann</h3>
+  </div>
+  <div class="panel-body">
+    <h3>Aufgabe 1a) </h3>
+    <h3>Aufgabe 1b) </h3>
+    <h3>Aufgabe 1c) </h3>
+  </div>
+</div>

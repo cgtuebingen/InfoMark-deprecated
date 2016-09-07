@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:day_and_time] = lambda { |time| time.strftime("%d %B, %H:%M:%S") }

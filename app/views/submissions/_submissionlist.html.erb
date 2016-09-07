@@ -1,0 +1,12 @@
+<% if !submissions.blank? %>
+  <ul class="list-unstyled">
+    <% for submission in submissions %>
+      <li>
+        <img src="<%= result_of_submission_img submission %>" style="margin-right:4px;" />
+        <%= link_to "Submission", submission_path(submission) %> vom <%= submission.created_at.to_formatted_s(:long) %>
+        <%= badge_for_submission submission, css: "pull-right" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+<% end %>

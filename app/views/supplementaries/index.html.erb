@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Supplementaries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Course</th>
+      <th>Info</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @supplementaries.each do |supplementary| %>
+      <tr>
+        <td><%= supplementary.file %></td>
+        <td><%= supplementary.course %></td>
+        <td><%= supplementary.info %></td>
+        <td><%= link_to 'Show', supplementary %></td>
+        <td><%= link_to 'Edit', edit_supplementary_path(supplementary) %></td>
+        <td><%= link_to 'Destroy', supplementary, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Supplementary', new_supplementary_path %>

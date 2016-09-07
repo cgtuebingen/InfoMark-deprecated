@@ -1,0 +1,169 @@
+<h1><%= @course.title %> </h1>
+<h3 class="subtitle"><%= @course.subtitle %></h3>
+<p>
+  <strong>Begin:</strong>
+  <%= @course.begin %>
+</p>
+<!-- <p>
+  <strong>Termination:</strong>
+  <%= @course.termination %>
+</p> -->
+<h4 class="underlined">Kursbeschreibung</h4>
+<%= markdown(@course.description) %>
+<h4 class="underlined">Team</h4>
+<% team = team_of_course(@course) %>
+<% if !team.blank? %>
+  <div class="row" style="margin-bottom:15px;">
+    <% for member in team %>
+      <div class="col-md-4" style="margin-bottom:10px">
+        <%= gravatar_for(member, size: 80) %><%= member.name %><br>
+        <a href="mailto:<%= member.email %>"><%= member.email %></a></div>
+    <% end %>
+  </div>
+<% else %>
+<% end %>
+<h4 class="underlined">Übungsgruppen</h4>
+<% exercise_groups = @course.course_groups.order(id: :asc) %>
+<% if !exercise_groups.blank? %>
+  <div class="row">
+    <% for ex_group in exercise_groups %>
+      <div class="col-md-4">
+        <h5 class="underlined"> Gruppe <%= ex_group.id %> <small>betreut durch <%= ex_group.owner.name %></small></h5>
+        <% if can? current_user, :manage, ex_group %>
+          <span style="margin-left:5px;" class="pull-right" >
+            <%= glink_to "" ,"pencil" , edit_group_path( ex_group)  %>
+            <%= glink_to "" ,"trash"  , group_path(ex_group),  method: :delete, 'data-no-turbolink' => true, data: {'no-turbolink'=> true, 
+              'confirm-title'=> 'Gruppe entfernen',
+              'confirm' => 'Wirklich die Gruppe löschen? Alle verbundenene Daten können unwiderruflich verloren gehen!', 
+              'confirm-proceed'=> 'Entferne jetzt endlich die Gruppe!', 
+              'confirm-cancel' => 'Nicht löschen! Danke für die Erinnerung. ' }  %>
+          </span>
+        <% end %>
+        <%= markdown(ex_group.info) %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+<% end %>
+<p>
+  <%= glink_to 'add group','plus', new_course_group_path(@course) if can? current_user, :manage, ex_group %>
+</p>
+<div class="row">
+  <div class="col-md-6">
+    <h4 class="underlined">Präferenzen für Übungsgruppen abgeben</h4>
+    <p><%= assigned_group(current_user, @course) %>
+      <%= link_to "Präferenz ändern", course_group_enrollment_preferences_path(@course) %></p>
+    <% if !exercise_groups.blank? %>
+      <ul>
+        <% for ex_group in exercise_groups %>
+          <li>Gruppe: <%= ex_group.info %> gehalten von <%= link_to ex_group.owner.name, profile_path(ex_group.owner) %></li>
+        <% end %>
+      </ul>
+    <% else %>
+    <% end %></div>
+  <div class="col-md-3">
+    <h4 class="underlined">Aufgabenblätter</h4>
+    <p>Alle bereits veröffentlichten Aufgabenblätter.</p>
+    <ul  class="list-unstyled">
+      <% @course.exercise_sheets.order(:order).each do |sheet| %>
+        <% if can? current_user, :see, sheet %>
+          <li><%= glink_to "Übungsblatt Nr. #{sheet.order}", "cloud-download", exercise_sheet_path(sheet.id) %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-3">
+    <h4 class="underlined">Klausur</h4>
+    <p>festgelegte Klausurtermine <%= glink_to '','plus', new_course_exam_path(@course) if can? current_user, :manage, @course %></p>
+    <% @course.exams.each do |exam| %>
+      <p style="text-decoration:underline;"><%= exam.title %> am <%= exam.date.to_formatted_s(:long) %> </p>
+      <p><%= exam.info %>
+      <br>
+      <i>Bonus:</i> 
+      <br>
+      <% if exam.bonus.nil? %>
+      kein Bonus konfiguriert
+      <% else 
+      bonus = Hash[*exam.bonus.split(",")].map{ |k,v| [k.to_i, v.to_f]}
+      %>
+      <% bonus.each do |b| %>
+        Bonus von <%= b[1] %> ab <%= b[0] %> Punkten<br>
+      <% end %>
+      <% end %>
+
+        <%= glink_to '','pencil', edit_course_exam_path(@course,exam) if can? current_user, :manage, exam %>
+        <%= glink_to '','trash', course_exam_path(@course, exam), method: :delete  , data: {'no-turbolink'=> true, 
+              'confirm-title'=> 'Klausurtermin entfernen',
+              'confirm' => 'Wirklich den Klausurtermin löschen? Alle verbundenene Daten können unwiderruflich verloren gehen!', 
+              'confirm-proceed'=> 'Klausurtermin entfernen!', 
+              'confirm-cancel' => 'Nicht löschen! Danke für die Erinnerung. ' } if can? current_user, :manage, exam %>
+      </p>
+    <% end %>
+  </div>
+</div>
+<h4 class="underlined">Kurs-Material</h4>
+<p>Folien der Vorlesung.</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Title</th>
+      <th>Material</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @course.slides.each do |slide| %>
+      <%if can? current_user, :see, slide %>
+        <tr>
+          <td><%= slide.lecture.strftime('%d %B %Y') %></td>
+          <td><%= File.basename(slide.file.path) %> <%= glink_to '','pencil', edit_slide_path(slide) if can? current_user, :manage, ex_group %></td>
+          <td><%= glink_to "download", 'cloud-download', download_slide_path(slide) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    <p>
+      <%if can? current_user, :manage, Slide.new %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= glink_to '','plus', new_slide_path  %></td>
+        </tr>
+      <% end %>
+    </p>
+  </tbody>
+</table>
+<h4 class="underlined">Extra-Material</h4>
+<p>Quelltexte und Zusatzmaterialien der Vorlesung</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Info</th>
+      <th>Datei</th>
+      <th>Material</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @course.supplementaries.order(:id).each do |supplementary| %>
+      <% if can? current_user, :see, supplementary %>
+        <tr>
+          <td><%= supplementary.info %></td>
+          <td><%= File.basename(supplementary.file.path) %> <%= glink_to '','pencil', edit_supplementary_path(supplementary) if can? current_user, :manage, @course %></td>
+          <td><%= glink_to "download", 'cloud-download', download_supplementary_path(supplementary) %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    <p>
+      <%if can? current_user, :manage, Slide.new %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= glink_to '','plus', new_supplementary_path  %></td>
+        </tr>
+      <% end %>
+    </p>
+  </tbody>
+</table>
+<%= link_to 'Edit', edit_course_path(@course), :class => "btn btn-default"   if can?(current_user, :edit_course, @course) %>
+<% if can? current_user, :manage, @current_exercise_sheet %>
+  <%= link_to 'Aufgabenblatt hinzufügen',new_course_exercise_sheet_path(@course), :class => "btn btn-default" %>
+<% end %>

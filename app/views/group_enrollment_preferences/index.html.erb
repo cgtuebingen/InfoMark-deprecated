@@ -1,0 +1,18 @@
+<h1>Preferenzen für Kurs <small><%= @course.title %></small></h1>
+<p>Hier kannst du auswählen, in welche Übungsgruppe du teilnehmen möchtest. Wir optimieren die <i>globale Zufriedenheit</i> über alle Ratings, sodass eine faire Zuordnung entsteht. Es können die Werte 1 bis 5 vergeben werden, wobei der Wert 1 für total Ablehnung dieses Übungstermins und 5 für eine favorisierte Übungsgruppe steht. </p>
+<% #[label,value] 
+    @choices = [['(1) nicht möglich','1'],['(2) eher nicht','2'],['(3) neutral','3'],['(4) bevorzugt','4'],['(5) unbedingt','5']]
+    %>
+<% if !@course.course_groups.blank? %>
+  <% for group in @course.course_groups %>
+    <h3><%= group.info %> <small>gehalten von <%= group.owner.name %></small></h3>
+    <% @current_rating = GroupEnrollmentPreference.find_or_create_by(user: @user, course_group: group) or %>
+    <%= bootstrap_form_for(@current_rating) do |f| %>
+      <%= f.select :rating ,@choices %>
+      <%= f.hidden_field :id ,name: "group_enrollment_preference[id]", value: @current_rating.id %>
+      <%= f.submit "Rating updaten" %>
+    <% end %>
+    
+  <% end %>
+<% else %>
+<% end %>

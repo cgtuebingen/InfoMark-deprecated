@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>File:</strong>
+  <%= @slide.file %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= @slide.course %>
+</p>
+
+<p>
+  <strong>Publish:</strong>
+  <%= @slide.publish %>
+</p>
+
+<p>
+  <strong>Public:</strong>
+  <%= @slide.public %>
+</p>
+
+<p>
+  <strong>Lecture:</strong>
+  <%= @slide.lecture %>
+</p>
+
+<p>
+  <strong>Info:</strong>
+  <%= @slide.info %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @slide.title %>
+</p>
+
+<%= link_to 'Edit', edit_slide_path(@slide) %> |
+<%= link_to 'Back', slides_path %>

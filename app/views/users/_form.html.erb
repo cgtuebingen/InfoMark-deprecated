@@ -1,0 +1,6 @@
+<%= bootstrap_form_for(@user) do |f| %>
+  <%= f.text_field :first_name, autofocus: true, label: "Vorname" %>
+  <%= f.text_field :last_name, label: "Familienname"  %>
+  <%= f.text_field :email%>
+  <%= f.primary %>
+<% end %>

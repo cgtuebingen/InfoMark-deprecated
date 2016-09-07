@@ -1,0 +1,3 @@
+[submodule "app/runner"]
+	path = app/runner
+	url = git@github.com:PatWie/automark-worker.git

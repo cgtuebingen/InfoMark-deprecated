@@ -1,0 +1,40 @@
+<%= bootstrap_form_for(@globalnotification) do |f| %>
+  <%= f.text_area :body, label:"Text" %>
+  <div class="row">
+    <div class="col-md-6"> <%= f.datetime_picker :start, label: "startet ab" %>
+    </div>
+    <div class="col-md-6"><%= f.datetime_picker :ends, label: "läuft bis" %></div>
+  </div>
+  <%= f.select :visibility, Globalnotification.visibilities.keys.map {|role| [role.titleize,role]}, label: "sichtbar ab Rolle" %>
+
+<div class="actions">
+  <%= f.submit %>
+</div>
+<% end %>
+<script type="text/javascript">
+  $(document).on('ready page:change', function () {$('.bootstrap_form-datetimepicker').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});});
+</script>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

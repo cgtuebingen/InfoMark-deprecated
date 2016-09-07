@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Submission:</strong>
+  <%= @linecomment.submission %>
+</p>
+
+<p>
+  <strong>File name:</strong>
+  <%= @linecomment.file_name %>
+</p>
+
+<p>
+  <strong>Line:</strong>
+  <%= @linecomment.line %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @linecomment.comment %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @linecomment.user %>
+</p>
+
+<%= link_to 'Edit', edit_linecomment_path(@linecomment) %> |
+<%= link_to 'Back', linecomments_path %>

@@ -1,0 +1,16 @@
+<% unless sheet.nil? %>
+  <% if can? user, :submit, sheet %>
+    <p>Bitte lade deine Lösung für jede Aufgaben einzeln hoch. Wir akzeptieren nur <strong>zip</strong>-Dateien mit einer maximalen Dateigröße von 4MB! Die Bewertung bezieht sich jeweils nur auf deine letzte Submission. Die Tutoren können nicht auf vorherige Abgaben zugreifen.</p>
+    <% sheet.exercise_tasks.order(:order).each do |latest_task| %>
+      <%= form_for @next_submission, html: { multipart: true,  :class => "form-inline" } do |f| %>
+        <%= f.hidden_field :exercise_task_id,  value: latest_task.id %>
+        <div class="form-group form-group-sm">
+          <%= f.file_field :file %>
+        </div>
+        <%= f.submit "Lösung hochladen (Aufgabe #{latest_task.order})", class: "btn btn-default btn-xs" %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p class="alert-info alert">Hochladen von Lösungen ist momentan nicht möglich.</p>
+  <% end %>
+<% end %>

@@ -1,0 +1,62 @@
+<h2>Tutor Bereich</h2>
+<p>Du hast die Berechtigung <em>alle</em> Abgaben zu korrigieren, um einen flexiblen Ablauf zu gewährleisten. Bitte bewerte jedoch keine Abgaben von fremden Gruppen, ohne vorherige Rücksprache mit dem der Gruppe zugeteilten Tutor. Deine Gruppe ist farblich hervorgehoben.</p>
+<% @possible_groups.each do |group| %>
+  <% if can? current_user, :show_groups, group %>
+    <% submissions_false = Grading.where(tutor_id: group.tutor.id,ready: false).count() %>
+    <% submissions_true = Grading.where(tutor_id: group.tutor.id, ready: true).count() %>
+    <% if group.tutor.id == current_user.id %>
+      <div class="panel panel-primary">
+      <% else %>
+        <div class="panel panel-default">
+        <% end %>
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= group.course.title %> (Gruppe <%= group.id %>, Tutor: <%= group.tutor.name %>)</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-4">
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-success"><span class="badge"><%= submissions_true %></span>bereits bewertete Abgaben</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-warning"><span class="badge"><%= submissions_false %></span>ausstehende Abgaben</li>
+              </ul>
+            </div>
+              <div class="col-md-4">
+            
+                  <%= link_to 'Mail senden', new_course_message_path(group.course.id), :class => "btn btn-default" %>
+             
+            </div>
+          </div>
+          <dl class="dl-horizontal">
+            <dt>Studenten</dt>
+            <dd><%= group.users.count %> (<%= link_to 'anzeigen', group_path(group.id) %>)</dd>
+          </dl>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Aufgabenblatt</th>
+                <th>Abgabefrist Studenten</th>
+                <th>gebündelte Abgabe</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% group.course.exercise_sheets.order(:order).each do |sheet| %>
+                <%  if sheet.duedate.to_i < DateTime.now.to_i %>
+                  <tr>
+                    <td><%= link_to "Blatt Nr. #{sheet.order}", exercise_sheet_path(sheet)  %></td>
+                    <td><%= sheet.duedate.to_formatted_s(:long) %></td>
+                    <td><%= glink_to "alle Abgaben herunterladen", 'cloud-download', "/data/collection/course#{group.course.id}/sheet#{sheet.id}/group#{group.id}.zip"  %></td>
+                    <td><%= glink_to "Abgaben bewerten", 'zoom-in', group_sheet_gradings_path(group,sheet)  %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  <% end %>

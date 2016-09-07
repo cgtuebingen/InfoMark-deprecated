@@ -1,0 +1,52 @@
+
+
+<h1>hi</h1>
+<pre>
+# we find the optimal assign of student -> groups 
+# according their preferences
+
+set student;
+set group;
+
+# their assigned groups
+var assign{i in student, j in group} binary;
+# their preferences (given)
+param pref{i in student, j in group};
+
+# maximize happiness
+maximize totalPref:
+    sum{i in student, j in group} pref[i,j]*assign[i,j];
+
+# each student should attend only one group
+subject to exactly_one_group {i in student}:
+    sum{j in group} assign[i,j] = 1;
+
+# there are at least 3 student per group
+subject to min3_per_group{j in group}:
+    sum{i in student} assign[i,j] >=0;
+
+# there are at most 4 student per group
+subject to max4_per_group{j in group}:
+    sum{i in student} assign[i,j] <=4;
+
+</pre>
+
+<pre>
+
+set group:= <% @groups.each do |idx| %> <%= idx %><% end %>;
+set student:= <% @students.each do |idx| %> <%= idx %><% end %>;
+
+
+
+param pref:
+     <% @groups.each do |idx| %> <%= idx %><% end %> :=
+<% @students.each do |idx| %>
+<% current_favs = GroupEnrollmentPreference.where(user_id: idx).order(:course_group_id) %>
+<% unless current_favs.nil? %>
+<% if current_favs.count > 0 %>
+<%= idx %>    <% current_favs.each do |fav| %> <%= fav.rating %><% end %>
+<% end %>
+<% end %>
+<% end %>
+
+</pre>

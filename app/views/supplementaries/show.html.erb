@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>File:</strong>
+  <%= @supplementary.file %>
+</p>
+
+<p>
+  <strong>Course:</strong>
+  <%= @supplementary.course %>
+</p>
+
+<p>
+  <strong>Info:</strong>
+  <%= @supplementary.info %>
+</p>
+
+<%= link_to 'Edit', edit_supplementary_path(@supplementary) %> |
+<%= link_to 'Back', supplementaries_path %>

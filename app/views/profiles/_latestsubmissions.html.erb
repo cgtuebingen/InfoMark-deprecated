@@ -1,0 +1,14 @@
+<p>Hinweis: Das Icon <%= image_tag 'bad-case-small.png' %> gibt lediglich an, ob ein Test failed.</p>
+<ul  class="list-unstyled">
+  <% latest_submissions(user, course).each do |sub| %>
+    <li>
+      <img src="<%= result_of_submission_img sub %>"  style="margin-right:4px;" />
+      <%= badge_for_submission sub, css: "pull-right" %>
+      <%= link_to "Submission", submission_path(sub)%>, <%= sub.created_at.to_formatted_s(:day_and_time) %>,
+      (<%= distance_of_time_in_words(sub.created_at ,Time.now) %> ago) 
+      für Aufgabe <%= sub.exercise_task.order %>, 
+      <%= link_to "Übungsblatt #{sub.exercise_task.exercise_sheet.order}", 
+      exercise_sheet_path(sub.exercise_task.exercise_sheet) %> 
+      </li>
+  <% end %>
+</ul>

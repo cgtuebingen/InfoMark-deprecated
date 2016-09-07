@@ -1,0 +1,14 @@
+<%= bootstrap_form_for([@course, @exam]) do |f| %>
+    <%= f.text_field :title %>
+    <%= f.hidden_field :course_id %>
+    <%= f.datetime_picker :date, label: "Klausurtermin" %>
+    <%= f.text_area :info %>
+    <%= f.text_area :bonus, placeholder: "150,0,200,0.3,points, bonus" %>
+    <p>Format ist <code>punkte, bonus</code> (nicht kummulativ).</p>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $(document).on('ready page:change', function () {$('.bootstrap_form-datetimepicker').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});});
+</script>

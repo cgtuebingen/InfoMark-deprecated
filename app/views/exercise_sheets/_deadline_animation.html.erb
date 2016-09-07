@@ -1,0 +1,16 @@
+<% if @current_exercise_sheet.duedate > Time.now %>
+      <p>verbleibende Zeit bis Abgabefrist</p>
+      <div id="timer" style="font-size: 1.5em; margin-bottom:0.5em;" 
+  data-publish="<%= @current_exercise_sheet.publish.to_formatted_s(:long) %>"
+  data-deadline="<%= @current_exercise_sheet.duedate.to_formatted_s(:long) %>"
+  >0d 0h 0m 0s</div>
+      <p>bereits verstrichene Zeit</p>
+      <div  class="progress progress-striped active">
+        <div  id="timer-pgb" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+        </div>
+      </div>
+   
+  <% else %>
+
+      <p class="alert-danger alert">Abgabefrist bereits abgelaufen</p>
+  <% end %>

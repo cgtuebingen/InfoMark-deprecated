@@ -1,0 +1,56 @@
+<!-- https://github.com/bootstrap-ruby/rails-bootstrap-forms -->
+<% content_for(:body_attributes) do %>
+  data-no-turbolink="true"
+  <% end %>
+<%= bootstrap_form_for(@course) do |f| %>
+  <% if @course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+      <ul>
+        <% @course.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.text_field :title%>
+  </div>
+  <div class="field"><br>
+    <%= f.text_field :subtitle %>
+  </div>
+    <div class="row">
+    <div class="col-md-6">
+      <div class="field">
+        <%= f.datetime_picker :begin %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="field">
+        <%= f.datetime_picker :termination %>
+      </div>
+    </div>
+  </div>
+  <div class="field"><br>
+    <%= f.text_area :description, :class => "markdown-area" , :data => {:lang => 'markdown'} %>
+  </div>
+  <div class="field">
+    <%= f.text_field :min_points, label: "Mindestpunktzahl zur Klausurzulassung"%>
+  </div>
+  <div class="field">
+    <%= f.check_box :show_exam_approval, label: "Klausurzulassung im Profil anzeigen lassen"%>
+  </div>
+
+  <div class="actions">
+    <%= f.primary %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).on('ready page:change', function () {
+          $('.bootstrap_form-datetimepicker').datetimepicker({
+            // $('.date-picker').datetimepicker({
+              format: 'YYYY-MM-DD'
+            });
+        });
+</script>

@@ -1,0 +1,18 @@
+<%= bootstrap_form_for([@exercise_sheet, @exercise_task]) do |f| %>
+  
+  <div class="row">
+    <div class="col-md-6"><%= f.number_field :order , label: "Aufgabennummer" %>
+    </div>
+    <div class="col-md-6"><%= f.number_field :max_points, label: "maximal erreichbare Punkte"  %></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6"><%= f.file_field :public_test , label: "public Testframework"  %>
+    </div>
+    <div class="col-md-6"><%= f.file_field :private_test , label: "private Testframework"  %></div>
+  </div>
+  
+  
+  <div class="actions pull-right">
+    <%= f.submit %>
+  </div>
+<% end %>

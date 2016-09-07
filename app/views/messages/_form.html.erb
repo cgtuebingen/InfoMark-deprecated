@@ -1,0 +1,21 @@
+<p>Wenn eine Email in die weite Welt gesendet wird, gibt es kein Zurück mehr. Wir bitten dich daher vorher deine Mail noch einmal zu überprüfen:
+<ul>
+  <li>Ist das Feature Rechtschreibung eingebaut?</li>
+  <li>Ist dein Text kompatibel zur deutschen Grammatik?</li>
+  <li>Orientiert sich der Text an allgemein anerkannten Richtlinien der Kommunikation?</li>
+</ul>
+<div class="alert alert-notice">Es ist technisch nicht möglich Nachrichten an Adressen außerhalb <i>uni-tuebingen.de</i> zu senden.</div>
+</p>
+<%= bootstrap_form_for([@course, @message]) do |f| %>
+<%= label_tag "Empfänger" %>
+    <% if can? current_user, :send_all, @course  %>
+    <%= select_tag "message[course_info]", options_for_select(CourseGroup.where(owner: current_user).collect{|mt| [mt.info, mt.id]}.append(["... alle Studierende",-1])) ,class: "form-control" %>
+    <% else  %>
+    <%= select_tag "message[course_info]", options_for_select(CourseGroup.where(owner: current_user).collect{|mt| [mt.info, mt.id]}) ,class: "form-control" %>
+    <% end  %>
+    <%= f.text_field :subject, label: "Betreff" %>
+    <%= f.text_area :body, rows: 20, label: "Text" %>
+  <div class="actions">
+    <%= f.submit "Nachricht senden", class:"btn btn-default pull-right" %>
+  </div>
+<% end %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @globalnotification.body %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @globalnotification.start %>
+</p>
+
+<p>
+  <strong>Ends:</strong>
+  <%= @globalnotification.ends %>
+</p>
+
+<p>
+  <strong>Visibility:</strong>
+  <%= @globalnotification.visibility %>
+</p>
+
+<%= link_to 'Edit', edit_globalnotification_path(@globalnotification) %> |
+<%= link_to 'Back', globalnotifications_path %>

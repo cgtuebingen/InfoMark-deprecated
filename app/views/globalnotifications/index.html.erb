@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Globalnotifications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th>Start</th>
+      <th>Ends</th>
+      <th>Visibility</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @globalnotifications.each do |globalnotification| %>
+      <tr>
+        <td><%= globalnotification.body %></td>
+        <td><%= globalnotification.start %></td>
+        <td><%= globalnotification.ends %></td>
+        <td><%= globalnotification.visibility %></td>
+        <td><%= link_to 'Show', globalnotification %></td>
+        <td><%= link_to 'Edit', edit_globalnotification_path(globalnotification) %></td>
+        <td><%= link_to 'Destroy', globalnotification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Globalnotification', new_globalnotification_path %>

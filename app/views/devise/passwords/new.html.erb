@@ -1,0 +1,14 @@
+<% provide(:title, 'Sign up') %>
+<div class="card bg-white">
+  <div class="card-content">
+    <h2>Passwort vergessen?</h2>
+    <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= devise_error_messages! %>
+      <%= f.email_field :email, autofocus: true %>
+      <%= f.primary "Sende mir eine Mail, um ein neues Passwort zu setzen" %>
+    <% end %>
+  </div>
+</div>
+<div class="additional-info">
+  <%= render "devise/shared/links" %>
+</div>

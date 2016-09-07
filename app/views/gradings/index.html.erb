@@ -1,0 +1,126 @@
+ <% content_for(:body_attributes) do %>
+    data-no-turbolink="true"
+  <% end %>
+<h1>Bewertung</h1>
+<p>Hier können alle gültigen Submissions für das Aufgabenblatt <%= link_to "exercise sheet no. #{@current_sheet.order}", exercise_sheet_path(@current_sheet)  %> bewertet werden. Das Speichern geschieht asynchron (ohne erneutes Laden der Seite). Der Rahmen vom Feld gibt den aktuellen Zustand der Bewertung an: <span data-sync="async">rot</span> bedeuted asynchrone information und <span data-sync="sync">grün</span> bedeutet, dass die Änderung in der Datenbank gespeichert ist.</p>
+<p>Um noch einmal deutlich die Interpretation der Icons über die Auswertung einer Submission zu erläutern, sei hier erwähnt, dass diese lediglich ein Indikator für die geparste Testausgabe sind.
+<dl class="dl-horizontal">
+      <dt><%= image_tag 'bad-case-small.png' %> </dt>
+      <dd>bedeutet, dass im Test-Output ein "failed" gefunden wurde.</dd>
+      <dt><%= image_tag 'good-case-small.png' %> </dt>
+      <dd>bedeutet, dass kein "failed" in der Test-Ausgabe vorhanden ist.</dd>
+    </dl>
+</p>
+<p>Es müssen jeweils Punkte vergeben werden <b>und</b> die Checkbox aktiviert werden, um das Review freizuschalten. Es ist absichtlich jede einzelne Bewertung per Checkbox aktivieren und <i>submit</i> klicken erst freigeschaltet wird.</p>
+
+<div class="form-group">
+  <div class="input-group">
+    <div class="input-group-addon">Filter</div>
+    <input type="text" class="form-control" id="filter" value="<%= @url_filter %>" placeholder="Name oder Aufgabennummer">
+  </div>
+</div>
+
+
+<h3>Bewerten</h3>
+<% @next_grading = Grading.new %>
+<div id="grading_area">
+  <% @current_grades.each do |grade| %>
+    <div class="panel panel-default">
+      <div class="panel-heading" data-name="<%= grade.user.name %> Aufgabe <%= grade.submission.exercise_task.order %>">
+     <!--  <span class="glyphicon glyphicon-ok green"></span> -->
+        <%= link_to grade.user.name, profile_path(grade.user) %> submission for task <%= grade.submission.exercise_task.order %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+
+
+        
+          <div class="col-md-6 output">
+            <!-- DOCKER OUTPUT START-->
+             <label>public tests</label>
+            <div class="log-body" style="height:250px; overflow: scroll;">
+             
+            <% ds = DockerService.new(grade.submission) %>
+
+<!-- <%=  grade.submission.raw_log %> -->
+              <% if ds.no_public_test  %>
+                <%= grade.submission.raw_log %>
+              <% else %>
+                <%= prettify grade.submission.raw_log%>
+              <% end %>
+
+
+            </div>
+            <label>private tests</label>
+            <div class="log-body" style="height:250px; overflow: scroll;">
+
+<!-- <%= grade.submission.private_log %> -->
+              <% if grade.submission.private_log == "no private test" or grade.submission.private_log.blank?%>
+                <%= grade.submission.private_log%>  
+              <% else %>
+                <% if ds.no_private_test  %>
+                  <%= grade.submission.private_log%>
+                <% else %>
+                  <%= prettify grade.submission.private_log%>
+                <% end %>  
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-6 manual">
+            <!-- TUTOR FORM START-->
+            <!-- replace 2 by "@next_grading " -->
+            <%= bootstrap_form_for(grade, index: grade.id, remote: true, url: grading_path( grade.id, :format => "json")) do |f| %>
+              <%= f.text_area :feedback,name: "grading[feedback]", rows: 20  , value: grade.feedback, :class => "markdown-area" , :data => {:lang => 'markdown'}  %>
+              <div class="form-inline form-group">
+                <%= f.hidden_field :id ,name: "grading[id]", value: grade.id %>
+                <p>maximal <%= grade.submission.exercise_task.max_points %> Punkte vergeben</p>
+                <%= f.text_field :points ,name: "grading[points]", value: grade.points, :class => "point_input" %>
+                <%= f.check_box :ready, :label => "publish?" ,name: "grading[ready]", value: "", checked: grade.ready, :class => "ready" %>
+                <div class="btn-group" role="group" aria-label="...">
+                <%= f.submit "submit", class: "btn btn-primary btn-sm" %>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      weitere Aktionen
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "Details anzeigen (Docker Log)", submission_path(grade.submission), target: "_blank" %></li>
+                      <li><%= link_to "Abgabe herunteladen (zip)", download_submission_path(grade.submission), target: "_blank" unless grade.submission.file.blank? %></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <!-- TUTOR FORM END-->
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<script>
+var panels = $('#grading_area .panel');
+function filter_query(val){
+
+    panels.show().filter(function() {
+        var panelTitleText = $(this).find('.panel-heading').data("name").toLowerCase();
+        return panelTitleText.indexOf(val) < 0;
+    }).hide();
+}
+$('#filter').on('keyup', function() {
+    filter_query(this.value.toLowerCase());
+});
+$(document).on('ready page:change', function () {
+  
+  // Actions to do
+  // $(".markdown-area").each(function() {
+  //   CodeMirror.fromTextArea($(this).get(0), {
+  //     lineNumbers: true,
+  //     mode: $(this).attr('data-lang')
+  //   });
+  // });
+
+  filter_query($('#filter').val().toLowerCase());
+});
+</script>
+

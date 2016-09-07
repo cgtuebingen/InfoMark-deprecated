@@ -1,0 +1,22 @@
+<%= render 'userinfo' %>
+<%  if can?(current_user, :show_courses, @user) %>
+  <%  if has_filled_out_data(current_user) %>
+    <h3>Meine Kurse</h3>
+    <% @my_courses.each do |course| %>
+      <%= render 'courseinfo', course: course, user: @user %>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="panel panel-default">
+    <div class="panel-heading">Unvollständige Angaben </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6">
+          Du kannst nur an Kursen teilnehmen und Submissions durchführen, wenn deine Angaben vollständig sind. Bitte vervollständige <%= link_to "deine Angaben", edit_user_registration_path %>. Es fehlen die Angaben unter dem Abschnitt <b>weitere Daten</b>.
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>

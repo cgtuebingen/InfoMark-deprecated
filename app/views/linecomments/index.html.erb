@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Linecomments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Submission</th>
+      <th>File name</th>
+      <th>Line</th>
+      <th>Comment</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @linecomments.each do |linecomment| %>
+      <tr>
+        <td><%= linecomment.submission %></td>
+        <td><%= linecomment.file_name %></td>
+        <td><%= linecomment.line %></td>
+        <td><%= linecomment.comment %></td>
+        <td><%= linecomment.user %></td>
+        <td><%= link_to 'Show', linecomment %></td>
+        <td><%= link_to 'Edit', edit_linecomment_path(linecomment) %></td>
+        <td><%= link_to 'Destroy', linecomment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Linecomment', new_linecomment_path %>

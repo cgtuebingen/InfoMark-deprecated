@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Exercise Tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exercise_tasks.each do |exercise_task| %>
+      <tr>
+        <td><%= link_to 'Show', exercise_task %></td>
+        <td><%= link_to 'Edit', edit_exercise_task_path(exercise_task) %></td>
+        <td><%= link_to 'Destroy', exercise_task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Exercise task', new_exercise_task_path %>

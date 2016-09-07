@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- InfoMark, Patrick Wieschollek -->
+<html>
+  <head>
+    <title>InfoMark</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "network" %>
+    <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.js" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <svg width="300" height="300" style="position:absolute; top: 0; left:0; bottom:0; right:0;"></svg>
+    <div class="container">
+
+    </div>
+<div class="main-body">
+  <div class="body-inner">
+        
+    <%= yield %>
+    
+      </div>
+</div>
+<%= render :partial => "shared/tos" %>
+
+    <%= debug(params) if Rails.env.development? %>
+  </body>
+</html>

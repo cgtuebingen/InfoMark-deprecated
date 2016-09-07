@@ -1,0 +1,35 @@
+<h1>Notenvergabe</h1>
+<p>Es dürfen <%= @allowed_user_ids.count %> Studenten mitschreiben und bewertet werden.</p>
+<%= bootstrap_form_for :exam_grades, url: update_grades_course_exam_path do |f| %>
+  <table class="table tabl"e-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Vorname</th>
+        <th>Matrikelnummer</th>
+        <th>Punkte</th>
+        <th>Note</th>
+        <th>berechneter Bonus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @allowed_users.each_with_index do |user,i| 
+
+        g = ExamGrade.find_or_create_by(user_id: user.id, exam_id: @exam.id)
+        %>
+      <%= fields_for "exams[#{i}]", g do |pf| %>
+        <tr>
+          <td><%= link_to "#{user.last_name}", profile_path(user.id), target: "_blank" %></td>
+          <td><%= user.first_name %></td>
+          <td><%= user.student_number %></td>
+          <td><%= pf.text_field :points, value: g.points %> (<%= g.points %>)</td>
+          <td><%= pf.text_field :mark, value: g.mark %> (<%= g.mark %>) <%= pf.hidden_field :user_id, value: user.id %></td>
+          <td><%= @exam.bonus_for(@course.points_of(user)) %></td>
+          <td></td>
+        </tr>
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <%= f.submit %>
+<% end %>

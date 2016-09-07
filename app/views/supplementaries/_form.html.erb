@@ -1,0 +1,11 @@
+<%= bootstrap_form_for(@supplementary) do |f| %>
+
+    <%= f.file_field :file %>
+    <%= f.select :visibility, Enrollment.roles.keys.map {|role| [role.titleize,role]}, label: "sichtbar ab" %>
+    <%= f.select :course_id, course_list() %>
+    <%= f.text_area :info, rows: 20, label: "extra Hinweise" %>
+ 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

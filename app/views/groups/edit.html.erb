@@ -1,0 +1,9 @@
+<h3>edit group</h3>
+<%= bootstrap_form_for(@current_group, url: group_path(@current_group)) do |f| %>
+
+<%= f.text_area :info, :class => "markdown-area" , :data => {:lang => 'markdown'} %>
+
+<% @col = Enrollment.where.not(role: 0) %>
+<%= f.select :user_id, tutorlist_for_course(@current_course) , label: "tutor" %>
+<%= f.submit "update group"  %>
+<% end %>

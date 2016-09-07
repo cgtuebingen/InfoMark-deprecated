@@ -1,0 +1,29 @@
+<%= bootstrap_form_for(@slide) do |f| %>
+  
+
+ 
+    <%= f.file_field :file %>
+    <%= f.select :course_id, course_list() %>
+    <p>Uploads werden veröffentlich, sofern diese als <i>public</i> markiert und das Veröffentlichungsdatum erreicht wurden.</p>
+    <%= f.datetime_picker :publish, class: "date-time-p" %>
+    <%= f.check_box :public %>
+    <%= f.datetime_picker :lecture, class: "date-p", label: "Tag der Veranstaltung"  %>
+    <%= f.text_field :info, label: "Kurztext" %>
+    <%= f.text_field :title , label: "Titel"%>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $(document).on('ready page:change', function () {
+          $('.date-time-p').datetimepicker({
+            // $('.date-picker').datetimepicker({
+              format: 'YYYY-MM-DD HH:mm:ss'
+            });
+          $('.date-p').datetimepicker({
+            // $('.date-picker').datetimepicker({
+              format: 'YYYY-MM-DD'
+            });
+        });
+</script>

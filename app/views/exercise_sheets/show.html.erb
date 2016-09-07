@@ -1,0 +1,110 @@
+<h2>Übungsblatt <%= @current_exercise_sheet.order %> <small> <%= @current_exercise_sheet.course.title %></small></h2>
+<%= link_to 'Edit', edit_exercise_sheet_path(@current_exercise_sheet), class: "btn btn-default pull-right" if can? current_user, :manage, @current_exercise_sheet%>
+
+
+<h3><span class="glyphicon glyphicon-flag"></span> Hinweise</h3>
+<div class="row">
+  <div class="col-md-8">
+  <p><%= @current_exercise_sheet.description %></p>
+    <dl class="dl-horizontal">
+      <dt>veröffentlicht am</dt>
+      <dd><%= @current_exercise_sheet.publish.to_formatted_s(:long) %></dd>
+      <dt>Abgabefrist</dt>
+      <dd><%= @current_exercise_sheet.duedate.to_formatted_s(:long) %></dd>
+    </dl>
+  </div>
+  <div class="col-md-4">
+    <%= render 'deadline_animation' %>
+  </div>
+</div>
+
+
+<div style="font-size: 3em; margin-bottom:15px; text-align: center;">
+  <%= glink_to "Übungsblatt herunterladen", 'cloud-download', download_exercise_sheet_path(@current_exercise_sheet) %>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h3><span class="glyphicon glyphicon-book"></span> <%= @current_exercise_sheet.exercise_tasks.count %> Übungsaufgaben</h3>
+    Auf dem Übungsblatt <%= @current_exercise_sheet.exercise_tasks.count %> gilt es folgende Aufgaben zu bearbeiten. Hier ist auch die Stelle, an der wir dich bitten deinen persönlichen Schwierigkeitsgrad der Aufgaben einzuschätzen.
+    
+    
+    
+    <ul>
+      <% @current_exercise_sheet.exercise_tasks.order(order: :ASC).each_with_index do |task, idx| %>
+        <li>Aufgabe <%= task.order %> mit max. <%= task.max_points%> Punkten<br>
+          <dl class="dl-horizontal">
+            <dt>Schwierigkeit</dt>
+            <dd>zu einfach <%= rating_for task, "difficulty", :disable_after_rate => true %> zu schwierig</dd>
+            <dt>Verständlichkeit</dt>
+            <dd>unverständlich <%= rating_for task, "clearness", :disable_after_rate => true %> verständlich</dd>
+          </dl>
+          <% if can? current_user, :manage, @current_exercise_sheet %>
+            <!-- class="pull-right" -->
+            <span style="margin-left:5px;" class="pull-right" >
+              <%= glink_to "" ,"pencil" , edit_exercise_task_path( task)  %>
+              <%= glink_to "" ,"trash"  , task,  method: :delete, 'data-no-turbolink' => true, data: {'no-turbolink'=> true, 
+              'confirm-title'=> 'Aufgabe entfernen',
+              'confirm' => 'Wirklich die Aufgabe löschen? Alle verbundenene Daten können unwiderruflich verloren gehen!', 
+              'confirm-proceed'=> 'Entferne jetzt endlich die Aufgabe!', 
+              'confirm-cancel' => 'Nicht löschen! Danke für die Erinnerung. ' }  %>
+            </span>
+            <br>
+            <span>
+              [<%= link_to "private_test" , task.private_test.path %>, <%= link_to "public_test" , task.public_test.path %>]
+        </span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <%= glink_to 'add task','plus', new_exercise_sheet_exercise_task_path(params[:id]) if can? current_user, :manage, @current_exercise_sheet %>
+  </div>
+  <div class="col-md-6">
+    <h3><span class="glyphicon glyphicon-share"></span> Meine Submissions</h3>
+    <ul>
+      <% @current_exercise_sheet.exercise_tasks.order(:order).each_with_index do |task, idx| %>
+        <li>Aufgabe <%= task.order %>
+          <%= render :partial => "submissions/submissionlist", :locals => {:submissions => Submission.where(user: current_user, exercise_task_id: task.id).order(id: :DESC)} %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10">
+    <h3><span class="glyphicon glyphicon-send"></span> Submissions</h3>
+    <%= render 'submissions/uploadsubmission' , sheet: @current_exercise_sheet, user: current_user %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10">
+    <h3><span class="glyphicon glyphicon-star"></span> Reviews</h3>
+    <% if @current_exercise_sheet.duedate > DateTime.now %>
+      <div class="alert alert-info">Momentan keine Reviews verfügbar.</div>
+    <% else %>
+      <% if !@gradings.blank? %>
+        <% for grading in @gradings %>
+          <p>Wir verwenden deine Abgabe vom <%= link_to "#{grading.submission.created_at}", submission_path(grading.submission) %> für Aufgabe <%= grading.submission.exercise_task.order %> als Bewertungsgrundlage. </p>
+          <% unless grading.ready %>
+            <div class="feedback">
+              <div class="sk-loader-circle " style="float:left;margin-right:7px;"></div>
+              in Arbeit...</div>
+          <% else %>
+            <div>
+              <div class="feedback"><span class="badge pull-right"><%= grading.points %> points</span><br>
+                <%=  markdown(grading.feedback) %></div>
+              <% linecomments = Linecomment.where(submission_id:grading.submission.id)  
+                if linecomments.nil?
+                else %>
+                <p>Es liegen <%= linecomments.count %> Kommentare im Quelltext vor. <%= link_to "Jetzt ansehen.", submission_path(grading.submission) %></p>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p class="alert alert-info"> Keine Reviews vorhanden.</p>
+      <% end %>
+      <p>Nocheinmal: Die Tutoren können <strong>auschließlich die letzte</strong> Submission pro Aufgabe bewerten..
+      </p>
+    <% end %>
+  </div>
+</div>

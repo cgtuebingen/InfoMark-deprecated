@@ -1,0 +1,12 @@
+<h1>enrollments <small><%= @user.name %></small></h1>
+
+
+<% if !@enrollments.blank? %>
+<ul>
+  <% for enrollment in @enrollments %>
+    <li><%= link_to "edit enrollment" , edit_enrollment_path(enrollment.id) %> for <em><%= enrollment.course.title %></em></li>
+  <% end %>
+  </ul>
+<% else %>
+  
+<% end %>

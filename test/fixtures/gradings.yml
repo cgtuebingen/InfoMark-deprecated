@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  submission_info: 
+  feedback: MyText
+  points: 1
+
+two:
+  submission_info: 
+  feedback: MyText
+  points: 1

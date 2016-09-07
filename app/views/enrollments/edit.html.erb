@@ -1,0 +1,27 @@
+<%= bootstrap_form_for(@enrollment) do |f| %>
+   <p class="form-control-static">chnage role for <strong><%= @enrollment.user.name %></strong></p>
+  <%= f.select :role, Enrollment.roles.keys.to_a%>
+  <%= f.submit %>
+<% end %>
+<hr>
+<h3>roles</h3>
+
+<p>The roles are course-related. An admin for course x can be a student for course y. There is <b>no</b> permission sharing between courses.</p>
+<table class="table">
+<tr>
+	<th>student</th>
+	<td>basically can only subscribe and submit solutions</td>
+</tr>
+<tr>
+	<th>tutor</th>
+	<td>can grade submissions</td>
+</tr>
+<tr>
+	<th>supertutor</th>
+	<td>can also edit exercise sheets and testing frameworks</td>
+</tr>
+<tr>
+	<th>admin</th>
+	<td>manage everything for the current course, like editing course description, add exercise group. Assign group-tutor.</td>
+</tr>
+</table>

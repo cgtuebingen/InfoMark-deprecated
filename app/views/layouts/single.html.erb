@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- InfoMark, Patrick Wieschollek -->
+<html>
+  <head>
+    <title>InfoMark</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "network" %>
+    <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.js" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+
+
+    <svg width="300" height="300" style="position:absolute; top: 0; left:0; bottom:0; right:0;z-index:-100;"></svg>
+    <div class="container">
+
+    </div>
+<div class="main-body">
+  <div class="body-inner">
+       <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>" role="alert"><%= message %></div>
+          <% end %>
+    <%= yield %>
+      </div> 
+      <div style="background-color:white; padding:2px; padding-right:7px; text-align:right; font-size:0.7em">Entwickelt am Lehrstuhl für Computergrafik Tübingen</div>
+
+  
+</div>
+
+
+
+
+    <%= debug(params) if Rails.env.development? %>
+  </body>
+</html>

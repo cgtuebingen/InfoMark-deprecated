@@ -1,0 +1,168 @@
+<h2>Meine Submission</h2>
+<div class="row">
+  <div class="col-md-6">
+    <h3><span class="glyphicon glyphicon-flag"></span> Submission Information</h3>
+    <dl class="dl-horizontal">
+      <dt>hochgeladen am</dt>
+      <dd><%= @current_submission.created_at %></dd>
+      <dt>letzte Statusänderung</dt>
+      <dd><%= @current_submission.updated_at %></dd>
+      <dt>aktueller Status</dt>
+      <dd><%= badge_for_submission @current_submission %></dd>
+      <dt>Eigentümer</dt>
+      <dd><%= @current_submission.user.name %></dd>
+    </dl>
+    <%= link_to "Submission herunterladen", download_submission_path(@current_submission) %>
+  </div>
+  <div class="col-md-6">
+    <h3><span class="glyphicon glyphicon-book"></span> Übungsblatt <%= @sheet.order %></h3>
+    <dl class="dl-horizontal">
+      <dt>veröffentlicht am</dt>
+      <dd><%= @sheet.publish.to_formatted_s(:long) %></dd>
+      <dt>Abgabefrist</dt>
+      <dd><%= @sheet.duedate.to_formatted_s(:long) %></dd>
+    </dl>
+    <p><%= link_to "Aufgabenblatt anzeigen", exercise_sheet_path(@sheet) %></p>
+  </div>
+</div>
+<% ds = DockerService.new(@current_submission) %>
+<div class="row">
+  <h3>Ausgabe vom öffentlichen Unit-Test
+    <img src="<%= result_of_submission_img @current_submission, size:"" %>"  style="margin-right:4px;" />
+  </h3>
+  <% if @current_submission.queued?  %>
+    <p>wird bearbeitet...</p>
+  <% else %>
+    <div class="log-body">
+      <% if ds.no_public_test  %>
+        <%= @current_submission.raw_log %>
+      <% else %>
+        <%= prettify @current_submission.raw_log %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<% if can? current_user, :see_private, @current_submission %>
+  <div class="row">
+    <h3>Ausgabe vom privaten Unit-Test <small>nicht für Stundenten sichtbar</small>
+    </h3>
+    <% if @current_submission.queued?  %>
+      <p>wird bearbeitet...</p>
+    <% else %>
+      <div class="log-body">
+        <% if @current_submission.private_log == "no private test" or @current_submission.private_log.blank? %>
+          <%= @current_submission.private_log %>
+        <% else %>
+         <!--  <%= @current_submission.private_log %> -->
+          <% if ds.no_private_test  %>
+            <%= @current_submission.private_log %>
+          <% else %>
+            <%= prettify @current_submission.private_log %>
+          <% end %>  
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<% if can? current_user, :see_docker_log, @current_submission %>
+  <div class="row">
+    <h3>Ausgabe vom Docker-Log <small>nicht für Stundenten sichtbar</small>
+    </h3>
+    <div class="log-body">
+      <strong>public test <br>
+      </strong>
+      <% if File.file?("/data/results/"+@current_submission.id.to_s+".xml.log") %>
+        <% File.readlines("/data/results/"+@current_submission.id.to_s+".xml.log").each do |line| %>
+          <%= line %> <br>
+        <% end %>
+      <% end %>
+      <strong>private test <br>
+      </strong>
+      <% if File.file?("/data/results/_"+@current_submission.id.to_s+".xml.log") %>
+        <% File.readlines("/data/results/_"+@current_submission.id.to_s+".xml.log").each do |line| %>
+          <%= line %> <br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <h3>weitere Submissions zu dieser Aufgabe</h3>
+  <div class="col-md-6">
+    <% if !@related_submissions.blank? %>
+      <ul  class="list-unstyled">
+        <% for related_submission in @related_submissions %>
+          <li>
+            <img src="<%= result_of_submission_img related_submission %>"  style="margin-right:4px;" />
+            <%= link_to "Submission", submission_path(related_submission) %> vom <%= related_submission.created_at.to_formatted_s(:day_and_time) %>
+            <%= badge_for_submission related_submission, css: "pull-right" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="alert-info alert">Bisher exitieren keine weitere Submissions deinerseits zu dieser Aufgabe.</p>
+    <% end %>
+  </div>
+</div>
+
+
+<% unless @submission_files.empty? %>
+
+
+
+<div class="row">
+  <h3>Quelltexte</h3>
+  <p>Nur Dateien mit Quelltext (*.cpp,*.hpp,*.c,*.h,*.java,*.txt)</p>
+  <% if can?(current_user, :comment, @current_submission) %>
+  <p>Zum Kommentieren rechts neben die Zeilennummer klicken (es erscheint ein Plus). Pro Zeile gibt es nur einen Kommentar.</p>
+  <% end %>
+  <div class="col-md-12">
+    <div class="panel with-nav-tabs panel-default">
+      <div class="panel-heading">
+        <ul class="nav nav-tabs">
+          <% @submission_files.each_with_index do |file, idx| %>
+            <% if idx == 0 %>
+              <li class="active"><a href="##tab<%= idx %>default" data-toggle="tab"><%= File.basename(file) %></a></li>
+            <% else %>
+              <li><a href="##tab<%= idx %>default" data-toggle="tab"><%= File.basename(file) %></a></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="panel-body">
+        <div class="tab-content">
+          <% 
+s = SourceViewer.new;
+@submission_files.each_with_index do |file, idx| %>
+            <% code = File.open(file, "rb").read.sub("\n\n","\n") 
+            ext = File.extname(file)
+            lang = :plain
+
+            if ext == ".cpp"
+              lang = :cpp
+            end
+            if ext == ".java"
+              lang = :java
+            end
+
+            %>
+            <% if idx == 0 %>
+              <div class="tab-pane fade in active" id="tab<%= idx %>default">
+              <% else %>
+                <div class="tab-pane fade" id="tab<%= idx %>default">
+                <% end %>
+                <pre style="background-color:white; border:none;">
+                  
+                    <%= bfile = file.sub("/data/unpacked/#{@current_submission.id}", "")
+                    bfile = bfile.sub("/home/wieschol/git/lectures/InfoII_ss16_assignments/Uebungen/Tafel_Ue/Ue_T_04/code/", "")
+
+
+                    s.highlight(can?(current_user, :comment, @current_submission), current_user, lang, code, bfile, @current_submission.obfuscated_id) %>
+               
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+<% end %>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- InfoMark, Patrick Wieschollek -->
+<html>
+  <head>
+    <title>InfoMark</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "//d3js.org/d3.v3.js" %>
+    <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+
+    <%= csrf_meta_tags %>
+  </head>
+  <body 
+  <% if content_for?(:body_attributes) %>
+    <%= yield(:body_attributes) %> 
+  <% end %>>
+    <header class="header-container header-fixed">
+      <header class="top-header clearfix">
+        <div class="logo bg-primary"><a>InfoMark</a></div>
+        <div class="top-nav">
+          <ul class="nav-left list-unstyled">
+            <li><a href="#" style="font-size:12px;">https://info2.informatik.uni-tuebingen.de</a></li>
+          </ul>
+          <ul class="nav-right pull-right list-unstyled">
+            <li><a href="/"><%= gravatar_for current_user, size: 30 %><span><%= current_user.name %></span></a></li>
+            <li><%= link_to "<span class=\"glyphicon glyphicon-log-out\"></span> ".html_safe, destroy_user_session_path, method: :delete %></li>
+          </ul>
+        </div>
+      </header>
+    </header>
+    <div class="main-container">
+      <aside class="nav-container">
+        <div class="nav-wrapper">
+          <ul class="nav navbar-default">
+            <li class="nav-title"><span>Navigation</span></li>
+            <li><%= mlink_to "Übersicht", "home", root_url %></li>
+            <li><%= mlink_to "Kurse", "library_books", courses_path %></li>
+            <% if can? current_user, :open_tutor, CourseGroup.new %>
+              <li class="nav-title"><span>Tutor-Area</span></li>
+              <li><%= mlink_to "Bewerten", "gesture", groups_path %></li>
+            <% end %>
+            <% if current_user.root? %>
+              <li class="nav-title"><span>Admin-Area</span></li>
+              <li><%= mlink_to "Statistiken", "show_chart", statistics_path %></li>
+              <li><%= mlink_to "Slides","insert_photo", slides_path %></li>
+              <li><%= mlink_to "ExtraMaterial","attach_file", supplementaries_path %></li>
+              <li><%= mlink_to "GlobalNotification","chat", globalnotifications_path %></li>
+              <li><%= mlink_to "users","account_box", users_path %></li>
+              <li><%= mlink_to "Resque", "build", "/resque" %></li>
+            <% end %>
+          </ul>
+          time <%= (Time.now-@start_time)*1000  %> ms
+        </div>
+      </aside>
+      <div class="page">
+        <div class="content-container">
+          <% unless Globalnotification.all.empty? %>
+            <% for notification in Globalnotification.all %>
+            <% if notification[:visibility] <= highest_role(current_user) %>
+              <div class="alert alert-info">
+                <strong>Info:</strong> <%= notification.body %>
+                <% %>
+              </div>
+              <% end %>
+            <% end %>
+          <% else %>
+          <% end %>
+          <% if flash.any? %>
+            <% flash.each do |message_type, message| %>
+              <div class="alert alert-<%= message_type %>">
+                <a class="close" data-dismiss="alert" href="#"> x</a>
+                <%= message %>
+                <% %>
+              </div>
+            <% end %>
+            <% flash = nil %>
+          <% end %>
+          <%= yield %>
+          <%= debug(params) if Rails.env.development? %>
+        </div>
+      </div>
+    </div>
+    <!-- <footer>Entwickelt am Lehrstuhl für Computergrafik, Uni-Tübingen</footer> -->
+  </body>
+</html>

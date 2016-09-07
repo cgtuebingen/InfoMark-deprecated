@@ -1,0 +1,11 @@
+<% 
+if PointsCache.where(user_id: user.id).count() > 0
+@points = PointsCache.where(user_id: user.id, exercise_sheet_id: ExerciseSheet.where(course_id: course.id).order(:order).map(&:id)).includes(:exercise_sheet).pluck(:"exercise_sheets.order",:points) 
+else
+@points = []
+end
+ %>
+<p>Deine Punkte</p>
+
+<%= column_chart @points, width: "100%", height:"200px", colors: ["#A51E37"],library:{ vAxis: {title: "Punkte"},hAxis: {title: "Übungsserie"} }
+%>

@@ -1,0 +1,2375 @@
+// Override Bootstrap variables here (defaults from bootstrap-sass v3.3.6):
+
+//
+// Variables
+// --------------------------------------------------
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+// $gray-base:              #000
+// $gray-darker:            lighten($gray-base, 13.5%) // #222
+// $gray-dark:              lighten($gray-base, 20%)   // #333
+// $gray:                   lighten($gray-base, 33.5%) // #555
+// $gray-light:             lighten($gray-base, 46.7%) // #777
+// $gray-lighter:           lighten($gray-base, 93.5%) // #eee
+
+// $brand-primary:         darken(#428bca, 6.5%) // #337ab7
+// $brand-success:         #5cb85c
+// $brand-info:            #5bc0de
+// $brand-warning:         #f0ad4e
+// $brand-danger:          #d9534f
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+$body-bg: #f3f3f3;
+
+//** Global text color on `<body>`.
+// $text-color:            $gray-dark
+
+//** Global textual link color.
+// $link-color:            $brand-primary
+//** Link hover color set via `darken()` function.
+// $link-hover-color:      darken($link-color, 15%)
+//** Link hover decoration.
+// $link-hover-decoration: underline
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+// $font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif
+// $font-family-serif:       Georgia, "Times New Roman", Times, serif
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+// $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace
+// $font-family-base:        $font-family-sans-serif
+
+// $font-size-base:          14px
+// $font-size-large:         ceil(($font-size-base * 1.25)) // ~18px
+// $font-size-small:         ceil(($font-size-base * 0.85)) // ~12px
+
+// $font-size-h1:            floor(($font-size-base * 2.6)) // ~36px
+// $font-size-h2:            floor(($font-size-base * 2.15)) // ~30px
+// $font-size-h3:            ceil(($font-size-base * 1.7)) // ~24px
+// $font-size-h4:            ceil(($font-size-base * 1.25)) // ~18px
+// $font-size-h5:            $font-size-base
+// $font-size-h6:            ceil(($font-size-base * 0.85)) // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+// $line-height-base:        1.428571429 // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+// $line-height-computed:    floor(($font-size-base * $line-height-base)) // ~20px
+
+//** By default, this inherits from the `<body>`.
+// $headings-font-family:    inherit
+// $headings-font-weight:    500
+// $headings-line-height:    1.1
+// $headings-color:          inherit
+
+//== Iconography
+//
+//## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
+
+//** Load fonts from this directory.
+
+// [converter] If $bootstrap-sass-asset-helper if used, provide path relative to the assets load path.
+// [converter] This is because some asset helpers, such as Sprockets, do not work with file-relative paths.
+// $icon-font-path: if($bootstrap-sass-asset-helper, "bootstrap/", "../fonts/bootstrap/")
+
+//** File name for all font files.
+// $icon-font-name:          "glyphicons-halflings-regular"
+//** Element ID within SVG icon file.
+// $icon-font-svg-id:        "glyphicons_halflingsregular"
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+// $padding-base-vertical:     6px
+// $padding-base-horizontal:   12px
+
+// $padding-large-vertical:    10px
+// $padding-large-horizontal:  16px
+
+// $padding-small-vertical:    5px
+// $padding-small-horizontal:  10px
+
+// $padding-xs-vertical:       1px
+// $padding-xs-horizontal:     5px
+
+// $line-height-large:         1.3333333 // extra decimals for Win 8.1 Chrome
+// $line-height-small:         1.5
+
+// $border-radius-base:        4px
+// $border-radius-large:       6px
+// $border-radius-small:       3px
+
+//** Global color for active items (e.g., navs or dropdowns).
+// $component-active-color:    #fff
+//** Global background color for active items (e.g., navs or dropdowns).
+// $component-active-bg:       $brand-primary
+
+//** Width of the `border` for generating carets that indicator dropdowns.
+// $caret-width-base:          4px
+//** Carets increase slightly in size for larger components.
+// $caret-width-large:         5px
+
+//== Tables
+//
+//## Customizes the `.table` component with basic values, each used across all table variations.
+
+//** Padding for `<th>`s and `<td>`s.
+// $table-cell-padding:            8px
+//** Padding for cells in `.table-condensed`.
+// $table-condensed-cell-padding:  5px
+
+//** Default background color used for all tables.
+// $table-bg:                      transparent
+//** Background color used for `.table-striped`.
+// $table-bg-accent:               #f9f9f9
+//** Background color used for `.table-hover`.
+// $table-bg-hover:                #f5f5f5
+// $table-bg-active:               $table-bg-hover
+
+//** Border color for table and cell borders.
+// $table-border-color:            #ddd
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+// $btn-font-weight:                normal
+
+$btn-default-color:              #333;
+// $btn-default-bg:                 #fff
+// $btn-default-border:             #ccc
+
+$btn-primary-color:              #fff;
+// $btn-primary-bg:                 $brand-primary
+// $btn-primary-border:             darken($btn-primary-bg, 5%)
+
+// $btn-success-color:              #fff
+// $btn-success-bg:                 $brand-success
+// $btn-success-border:             darken($btn-success-bg, 5%)
+
+// $btn-info-color:                 #fff
+// $btn-info-bg:                    $brand-info
+// $btn-info-border:                darken($btn-info-bg, 5%)
+
+// $btn-warning-color:              #fff
+// $btn-warning-bg:                 $brand-warning
+// $btn-warning-border:             darken($btn-warning-bg, 5%)
+
+// $btn-danger-color:               #fff
+// $btn-danger-bg:                  $brand-danger
+// $btn-danger-border:              darken($btn-danger-bg, 5%)
+
+// $btn-link-disabled-color:        $gray-light
+
+// Allows for customizing button radius independently from global border radius
+// $btn-border-radius-base:         $border-radius-base
+// $btn-border-radius-large:        $border-radius-large
+// $btn-border-radius-small:        $border-radius-small
+
+//== Forms
+//
+//##
+
+//** `<input>` background color
+// $input-bg:                       #fff
+//** `<input disabled>` background color
+// $input-bg-disabled:              $gray-lighter
+
+//** Text color for `<input>`s
+// $input-color:                    $gray
+//** `<input>` border color
+// $input-border:                   #ccc
+
+// TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
+//** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
+// $input-border-radius:            $border-radius-base
+//** Large `.form-control` border radius
+// $input-border-radius-large:      $border-radius-large
+//** Small `.form-control` border radius
+// $input-border-radius-small:      $border-radius-small
+
+//** Border color for inputs on focus
+// $input-border-focus:             #66afe9
+
+//** Placeholder text color
+// $input-color-placeholder:        #999
+
+//** Default `.form-control` height
+// $input-height-base:              ($line-height-computed + ($padding-base-vertical * 2) + 2)
+//** Large `.form-control` height
+// $input-height-large:             (ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2)
+//** Small `.form-control` height
+// $input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2)
+
+//** `.form-group` margin
+// $form-group-margin-bottom:       15px
+
+// $legend-color:                   $gray-dark
+// $legend-border-color:            #e5e5e5
+
+//** Background color for textual input addons
+// $input-group-addon-bg:           $gray-lighter
+//** Border color for textual input addons
+// $input-group-addon-border-color: $input-border
+
+//** Disabled cursor for form controls and buttons.
+// $cursor-disabled:                not-allowed
+
+//== Dropdowns
+//
+//## Dropdown menu container and contents.
+
+//** Background for the dropdown menu.
+// $dropdown-bg:                    #fff
+//** Dropdown menu `border-color`.
+// $dropdown-border:                rgba(0,0,0,.15)
+//** Dropdown menu `border-color` **for IE8**.
+// $dropdown-fallback-border:       #ccc
+//** Divider color for between dropdown items.
+// $dropdown-divider-bg:            #e5e5e5
+
+//** Dropdown link text color.
+// $dropdown-link-color:            $gray-dark
+//** Hover color for dropdown links.
+// $dropdown-link-hover-color:      darken($gray-dark, 5%)
+//** Hover background for dropdown links.
+// $dropdown-link-hover-bg:         #f5f5f5
+
+//** Active dropdown menu item text color.
+// $dropdown-link-active-color:     $component-active-color
+//** Active dropdown menu item background color.
+// $dropdown-link-active-bg:        $component-active-bg
+
+//** Disabled dropdown menu item background color.
+// $dropdown-link-disabled-color:   $gray-light
+
+//** Text color for headers within dropdown menus.
+// $dropdown-header-color:          $gray-light
+
+//** Deprecated `$dropdown-caret-color` as of v3.1.0
+// $dropdown-caret-color:           #000
+
+//-- Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+//
+// Note: These variables are not generated into the Customizer.
+
+// $zindex-navbar:            1000
+// $zindex-dropdown:          1000
+// $zindex-popover:           1060
+// $zindex-tooltip:           1070
+// $zindex-navbar-fixed:      1030
+// $zindex-modal-background:  1040
+// $zindex-modal:             1050
+
+//== Media queries breakpoints
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+// Extra small screen / phone
+//** Deprecated `$screen-xs` as of v3.0.1
+// $screen-xs:                  480px
+//** Deprecated `$screen-xs-min` as of v3.2.0
+// $screen-xs-min:              $screen-xs
+//** Deprecated `$screen-phone` as of v3.0.1
+// $screen-phone:               $screen-xs-min
+
+// Small screen / tablet
+//** Deprecated `$screen-sm` as of v3.0.1
+// $screen-sm:                  768px
+// $screen-sm-min:              $screen-sm
+//** Deprecated `$screen-tablet` as of v3.0.1
+// $screen-tablet:              $screen-sm-min
+
+// Medium screen / desktop
+//** Deprecated `$screen-md` as of v3.0.1
+// $screen-md:                  992px
+// $screen-md-min:              $screen-md
+//** Deprecated `$screen-desktop` as of v3.0.1
+// $screen-desktop:             $screen-md-min
+
+// Large screen / wide desktop
+//** Deprecated `$screen-lg` as of v3.0.1
+// $screen-lg:                  1200px
+// $screen-lg-min:              $screen-lg
+//** Deprecated `$screen-lg-desktop` as of v3.0.1
+// $screen-lg-desktop:          $screen-lg-min
+
+// So media queries don't overlap when required, provide a maximum
+// $screen-xs-max:              ($screen-sm-min - 1)
+// $screen-sm-max:              ($screen-md-min - 1)
+// $screen-md-max:              ($screen-lg-min - 1)
+
+//== Grid system
+//
+//## Define your custom responsive grid.
+
+//** Number of columns in the grid.
+// $grid-columns:              12
+//** Padding between columns. Gets divided in half for the left and right.
+// $grid-gutter-width:         30px
+// Navbar collapse
+//** Point at which the navbar becomes uncollapsed.
+// $grid-float-breakpoint:     $screen-sm-min
+//** Point at which the navbar begins collapsing.
+// $grid-float-breakpoint-max: ($grid-float-breakpoint - 1)
+
+//== Container sizes
+//
+//## Define the maximum width of `.container` for different screen sizes.
+
+// Small screen / tablet
+// $container-tablet:             (720px + $grid-gutter-width)
+//** For `$screen-sm-min` and up.
+// $container-sm:                 $container-tablet
+
+// Medium screen / desktop
+// $container-desktop:            (940px + $grid-gutter-width)
+//** For `$screen-md-min` and up.
+// $container-md:                 $container-desktop
+
+// Large screen / wide desktop
+// $container-large-desktop:      (1140px + $grid-gutter-width)
+//** For `$screen-lg-min` and up.
+// $container-lg:                 $container-large-desktop
+
+//== Navbar
+//
+//##
+
+// Basics of a navbar
+// $navbar-height:                    50px
+// $navbar-margin-bottom:             $line-height-computed
+// $navbar-border-radius:             $border-radius-base
+// $navbar-padding-horizontal:        floor(($grid-gutter-width / 2))
+// $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2)
+// $navbar-collapse-max-height:       340px
+
+// $navbar-default-color:             #777
+$navbar-default-bg: #262B33;
+
+// $navbar-default-border:            darken($navbar-default-bg, 6.5%)
+
+// Navbar links
+// $navbar-default-link-color:                #777
+// $navbar-default-link-hover-color:          #333
+$navbar-default-link-hover-bg: #ff0000;
+
+// $navbar-default-link-active-color:         #555
+// $navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%)
+// $navbar-default-link-disabled-color:       #ccc
+// $navbar-default-link-disabled-bg:          transparent
+
+// Navbar brand label
+// $navbar-default-brand-color:               $navbar-default-link-color
+// $navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 10%)
+// $navbar-default-brand-hover-bg:            transparent
+
+// Navbar toggle
+// $navbar-default-toggle-hover-bg:           #ddd
+// $navbar-default-toggle-icon-bar-bg:        #888
+// $navbar-default-toggle-border-color:       #ddd
+
+//=== Inverted navbar
+// Reset inverted navbar basics
+// $navbar-inverse-color:                      lighten($gray-light, 15%)
+// $navbar-inverse-bg:                         #222
+// $navbar-inverse-border:                     darken($navbar-inverse-bg, 10%)
+
+// Inverted navbar links
+// $navbar-inverse-link-color:                 lighten($gray-light, 15%)
+// $navbar-inverse-link-hover-color:           #fff
+// $navbar-inverse-link-hover-bg:              transparent
+// $navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color
+// $navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%)
+// $navbar-inverse-link-disabled-color:        #444
+// $navbar-inverse-link-disabled-bg:           transparent
+
+// Inverted navbar brand label
+// $navbar-inverse-brand-color:                $navbar-inverse-link-color
+// $navbar-inverse-brand-hover-color:          #fff
+// $navbar-inverse-brand-hover-bg:             transparent
+
+// Inverted navbar toggle
+// $navbar-inverse-toggle-hover-bg:            #333
+// $navbar-inverse-toggle-icon-bar-bg:         #fff
+// $navbar-inverse-toggle-border-color:        #333
+
+//== Navs
+//
+//##
+
+//=== Shared nav styles
+// $nav-link-padding:                          10px 15px
+$nav-link-hover-bg: lighten($navbar-default-bg, 5%);
+
+// $nav-disabled-link-color:                   $gray-light
+// $nav-disabled-link-hover-color:             $gray-light
+
+//== Tabs
+// $nav-tabs-border-color:                     #ddd
+
+// $nav-tabs-link-hover-border-color:          $gray-lighter
+
+// $nav-tabs-active-link-hover-bg:             $body-bg
+// $nav-tabs-active-link-hover-color:          $gray
+// $nav-tabs-active-link-hover-border-color:   #ddd
+
+// $nav-tabs-justified-link-border-color:            #ddd
+// $nav-tabs-justified-active-link-border-color:     $body-bg
+
+//== Pills
+// $nav-pills-border-radius:                   $border-radius-base
+// $nav-pills-active-link-hover-bg:            $component-active-bg
+// $nav-pills-active-link-hover-color:         $component-active-color
+
+//== Pagination
+//
+//##
+
+// $pagination-color:                     $link-color
+// $pagination-bg:                        #fff
+// $pagination-border:                    #ddd
+
+// $pagination-hover-color:               $link-hover-color
+// $pagination-hover-bg:                  $gray-lighter
+// $pagination-hover-border:              #ddd
+
+// $pagination-active-color:              #fff
+// $pagination-active-bg:                 $brand-primary
+// $pagination-active-border:             $brand-primary
+
+// $pagination-disabled-color:            $gray-light
+// $pagination-disabled-bg:               #fff
+// $pagination-disabled-border:           #ddd
+
+//== Pager
+//
+//##
+
+// $pager-bg:                             $pagination-bg
+// $pager-border:                         $pagination-border
+// $pager-border-radius:                  15px
+
+// $pager-hover-bg:                       $pagination-hover-bg
+
+// $pager-active-bg:                      $pagination-active-bg
+// $pager-active-color:                   $pagination-active-color
+
+// $pager-disabled-color:                 $pagination-disabled-color
+
+//== Jumbotron
+//
+//##
+
+// $jumbotron-padding:              30px
+// $jumbotron-color:                inherit
+// $jumbotron-bg:                   $gray-lighter
+// $jumbotron-heading-color:        inherit
+// $jumbotron-font-size:            ceil(($font-size-base * 1.5))
+// $jumbotron-heading-font-size:    ceil(($font-size-base * 4.5))
+
+//== Form states and alerts
+//
+//## Define colors for form feedback states and, by default, alerts.
+
+// $state-success-text:             #3c763d
+// $state-success-bg:               #dff0d8
+// $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%)
+
+// $state-info-text:                #31708f
+// $state-info-bg:                  #d9edf7
+// $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%)
+
+// $state-warning-text:             #8a6d3b
+// $state-warning-bg:               #fcf8e3
+// $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%)
+
+// $state-danger-text:              #a94442
+// $state-danger-bg:                #f2dede
+// $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%)
+
+//== Tooltips
+//
+//##
+
+//** Tooltip max width
+// $tooltip-max-width:           200px
+//** Tooltip text color
+// $tooltip-color:               #fff
+//** Tooltip background color
+// $tooltip-bg:                  #000
+// $tooltip-opacity:             .9
+
+//** Tooltip arrow width
+// $tooltip-arrow-width:         5px
+//** Tooltip arrow color
+// $tooltip-arrow-color:         $tooltip-bg
+
+//== Popovers
+//
+//##
+
+//** Popover body background color
+// $popover-bg:                          #fff
+//** Popover maximum width
+// $popover-max-width:                   276px
+//** Popover border color
+// $popover-border-color:                rgba(0,0,0,.2)
+//** Popover fallback border color
+// $popover-fallback-border-color:       #ccc
+
+//** Popover title background color
+// $popover-title-bg:                    darken($popover-bg, 3%)
+
+//** Popover arrow width
+// $popover-arrow-width:                 10px
+//** Popover arrow color
+// $popover-arrow-color:                 $popover-bg
+
+//** Popover outer arrow width
+// $popover-arrow-outer-width:           ($popover-arrow-width + 1)
+//** Popover outer arrow color
+// $popover-arrow-outer-color:           fade_in($popover-border-color, 0.05)
+//** Popover outer arrow fallback color
+// $popover-arrow-outer-fallback-color:  darken($popover-fallback-border-color, 20%)
+
+//== Labels
+//
+//##
+
+//** Default label background color
+// $label-default-bg:            $gray-light
+//** Primary label background color
+// $label-primary-bg:            $brand-primary
+//** Success label background color
+// $label-success-bg:            $brand-success
+//** Info label background color
+// $label-info-bg:               $brand-info
+//** Warning label background color
+// $label-warning-bg:            $brand-warning
+//** Danger label background color
+// $label-danger-bg:             $brand-danger
+
+//** Default label text color
+// $label-color:                 #fff
+//** Default text color of a linked label
+// $label-link-hover-color:      #fff
+
+//== Modals
+//
+//##
+
+//** Padding applied to the modal body
+// $modal-inner-padding:         15px
+
+//** Padding applied to the modal title
+// $modal-title-padding:         15px
+//** Modal title line-height
+// $modal-title-line-height:     $line-height-base
+
+//** Background color of modal content area
+// $modal-content-bg:                             #fff
+//** Modal content border color
+// $modal-content-border-color:                   rgba(0,0,0,.2)
+//** Modal content border color **for IE8**
+// $modal-content-fallback-border-color:          #999
+
+//** Modal backdrop background color
+// $modal-backdrop-bg:           #000
+//** Modal backdrop opacity
+// $modal-backdrop-opacity:      .5
+//** Modal header border color
+// $modal-header-border-color:   #e5e5e5
+//** Modal footer border color
+// $modal-footer-border-color:   $modal-header-border-color
+
+// $modal-lg:                    900px
+// $modal-md:                    600px
+// $modal-sm:                    300px
+
+//== Alerts
+//
+//## Define alert colors, border radius, and padding.
+
+// $alert-padding:               15px
+// $alert-border-radius:         $border-radius-base
+// $alert-link-font-weight:      bold
+
+// $alert-success-bg:            $state-success-bg
+// $alert-success-text:          $state-success-text
+// $alert-success-border:        $state-success-border
+
+// $alert-info-bg:               $state-info-bg
+// $alert-info-text:             $state-info-text
+// $alert-info-border:           $state-info-border
+
+// $alert-warning-bg:            $state-warning-bg
+// $alert-warning-text:          $state-warning-text
+// $alert-warning-border:        $state-warning-border
+
+// $alert-danger-bg:             $state-danger-bg
+// $alert-danger-text:           $state-danger-text
+// $alert-danger-border:         $state-danger-border
+
+//== Progress bars
+//
+//##
+
+//** Background color of the whole progress component
+// $progress-bg:                 #f5f5f5
+//** Progress bar text color
+// $progress-bar-color:          #fff
+//** Variable for setting rounded corners on progress bar.
+// $progress-border-radius:      $border-radius-base
+
+//** Default progress bar color
+// $progress-bar-bg:             $brand-primary
+//** Success progress bar color
+// $progress-bar-success-bg:     $brand-success
+//** Warning progress bar color
+// $progress-bar-warning-bg:     $brand-warning
+//** Danger progress bar color
+// $progress-bar-danger-bg:      $brand-danger
+//** Info progress bar color
+// $progress-bar-info-bg:        $brand-info
+
+//== List group
+//
+//##
+
+//** Background color on `.list-group-item`
+// $list-group-bg:                 #fff
+//** `.list-group-item` border color
+// $list-group-border:             #ddd
+//** List group border radius
+// $list-group-border-radius:      $border-radius-base
+
+//** Background color of single list items on hover
+// $list-group-hover-bg:           #f5f5f5
+//** Text color of active list items
+// $list-group-active-color:       $component-active-color
+//** Background color of active list items
+// $list-group-active-bg:          $component-active-bg
+//** Border color of active list elements
+// $list-group-active-border:      $list-group-active-bg
+//** Text color for content within active list items
+// $list-group-active-text-color:  lighten($list-group-active-bg, 40%)
+
+//** Text color of disabled list items
+// $list-group-disabled-color:      $gray-light
+//** Background color of disabled list items
+// $list-group-disabled-bg:         $gray-lighter
+//** Text color for content within disabled list items
+// $list-group-disabled-text-color: $list-group-disabled-color
+
+// $list-group-link-color:         #555
+// $list-group-link-hover-color:   $list-group-link-color
+// $list-group-link-heading-color: #333
+
+//== Panels
+//
+//##
+
+// $panel-bg:                    #fff
+// $panel-body-padding:          15px
+// $panel-heading-padding:       10px 15px
+// $panel-footer-padding:        $panel-heading-padding
+// $panel-border-radius:         $border-radius-base
+
+//** Border color for elements within panels
+// $panel-inner-border:          #ddd
+// $panel-footer-bg:             #f5f5f5
+
+// $panel-default-text:          $gray-dark
+// $panel-default-border:        #ddd
+// $panel-default-heading-bg:    #f5f5f5
+
+// $panel-primary-text:          #fff
+// $panel-primary-border:        $brand-primary
+// $panel-primary-heading-bg:    $brand-primary
+
+// $panel-success-text:          $state-success-text
+// $panel-success-border:        $state-success-border
+// $panel-success-heading-bg:    $state-success-bg
+
+// $panel-info-text:             $state-info-text
+// $panel-info-border:           $state-info-border
+// $panel-info-heading-bg:       $state-info-bg
+
+// $panel-warning-text:          $state-warning-text
+// $panel-warning-border:        $state-warning-border
+// $panel-warning-heading-bg:    $state-warning-bg
+
+// $panel-danger-text:           $state-danger-text
+// $panel-danger-border:         $state-danger-border
+// $panel-danger-heading-bg:     $state-danger-bg
+
+//== Thumbnails
+//
+//##
+
+//** Padding around the thumbnail image
+// $thumbnail-padding:           4px
+//** Thumbnail background color
+// $thumbnail-bg:                $body-bg
+//** Thumbnail border color
+// $thumbnail-border:            #ddd
+//** Thumbnail border radius
+// $thumbnail-border-radius:     $border-radius-base
+
+//** Custom text color for thumbnail captions
+// $thumbnail-caption-color:     $text-color
+//** Padding around the thumbnail caption
+// $thumbnail-caption-padding:   9px
+
+//== Wells
+//
+//##
+
+// $well-bg:                     #f5f5f5
+// $well-border:                 darken($well-bg, 7%)
+
+//== Badges
+//
+//##
+
+// $badge-color:                 #fff
+//** Linked badge text color on hover
+// $badge-link-hover-color:      #fff
+// $badge-bg:                    $gray-light
+
+//** Badge text color in active nav link
+// $badge-active-color:          $link-color
+//** Badge background color in active nav link
+// $badge-active-bg:             #fff
+
+// $badge-font-weight:           bold
+// $badge-line-height:           1
+// $badge-border-radius:         10px
+
+//== Breadcrumbs
+//
+//##
+
+// $breadcrumb-padding-vertical:   8px
+// $breadcrumb-padding-horizontal: 15px
+//** Breadcrumb background color
+// $breadcrumb-bg:                 #f5f5f5
+//** Breadcrumb text color
+// $breadcrumb-color:              #ccc
+//** Text color of current page in the breadcrumb
+// $breadcrumb-active-color:       $gray-light
+//** Textual separator for between breadcrumb elements
+// $breadcrumb-separator:          "/"
+
+//== Carousel
+//
+//##
+
+// $carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6)
+
+// $carousel-control-color:                      #fff
+// $carousel-control-width:                      15%
+// $carousel-control-opacity:                    .5
+// $carousel-control-font-size:                  20px
+
+// $carousel-indicator-active-bg:                #fff
+// $carousel-indicator-border-color:             #fff
+
+// $carousel-caption-color:                      #fff
+
+//== Close
+//
+//##
+
+// $close-font-weight:           bold
+// $close-color:                 #000
+// $close-text-shadow:           0 1px 0 #fff
+
+//== Code
+//
+//##
+
+// $code-color:                  #c7254e
+// $code-bg:                     #f9f2f4
+
+// $kbd-color:                   #fff
+// $kbd-bg:                      #333
+
+// $pre-bg:                      #f5f5f5
+// $pre-color:                   $gray-dark
+// $pre-border-color:            #ccc
+// $pre-scrollable-max-height:   340px
+
+//== Type
+//
+//##
+
+//** Horizontal offset for forms and lists.
+// $component-offset-horizontal: 180px
+//** Text muted color
+// $text-muted:                  $gray-light
+//** Abbreviations and acronyms border color
+// $abbr-border-color:           $gray-light
+//** Headings small color
+// $headings-small-color:        $gray-light
+//** Blockquote small color
+// $blockquote-small-color:      $gray-light
+//** Blockquote font size
+// $blockquote-font-size:        ($font-size-base * 1.25)
+//** Blockquote border color
+// $blockquote-border-color:     $gray-lighter
+//** Page header border color
+// $page-header-border-color:    $gray-lighter
+//** Width of horizontal description list titles
+// $dl-horizontal-offset:        $component-offset-horizontal
+//** Point at which .dl-horizontal becomes horizontal
+// $dl-horizontal-breakpoint:    $grid-float-breakpoint
+//** Horizontal line color.
+// $hr-border:                   $gray-lighter
+
+$brand-primary: #A51E37 !default;
+
+// #337ab7
+$brand-success: #5cb85c !default;
+$brand-info: #5bc0de !default;
+$brand-warning: #f0ad4e !default;
+$brand-danger: #d9534f !default;
+
+$btn-default-color: #fff !default;
+
+$navbar-inverse-bg: #A51E37 !default;
+$navbar-inverse-color: #fff !default;
+$navbar-inverse-link-color: #fff !default;
+$navbar-inverse-link-hover-color: rgb(180, 160, 105) !default;
+$navbar-inverse-link-hover-bg: transparent !default;
+$navbar-inverse-link-active-color: $navbar-inverse-link-hover-color !default;
+$navbar-inverse-link-active-bg: darken($navbar-inverse-bg, 10%) !default;
+$navbar-inverse-link-disabled-color: #444 !default;
+$navbar-inverse-link-disabled-bg: transparent !default;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+    padding-top: 60px;
+    background-color: #f3f3f3;
+}
+
+section {
+    overflow: auto;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.center {
+    text-align: center;
+}
+
+.center h1 {
+    margin-bottom: 10px;
+}
+
+$gray-medium-light: #eaeaea;
+
+@mixin box_sizing {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* miscellaneous */
+
+.debug_dump {
+    clear: both;
+    float: left;
+    width: 100%;
+    margin-top: 45px;
+
+    @include box_sizing;
+}
+
+aside {
+    section.user_info {
+        margin-top: 20px;
+    }
+
+    section {
+        padding: 10px 0;
+        margin-top: 20px;
+
+        &:first-child {
+            border: 0;
+            padding-top: 0;
+        }
+
+        span {
+            display: block;
+            margin-bottom: 3px;
+            line-height: 1;
+        }
+
+        h1 {
+            font-size: 1.4em;
+            text-align: left;
+            letter-spacing: -1px;
+            margin-bottom: 3px;
+            margin-top: 0px;
+        }
+    }
+}
+
+
+
+input {
+    height: auto !important;
+}
+
+.gravatar {
+    float: left;
+    margin-right: 10px;
+}
+
+.gravatar_edit {
+    margin-top: 15px;
+}
+
+.field_with_errors label {
+    /*border: 1px solid red;*/
+    color: red;
+}
+
+.field_with_errors input {
+    border: 1px solid red;
+}
+
+/*
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+*/
+
+.header-container {
+    background-color: white;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+header .logo {
+    float: left;
+    display: inline-block;
+    width: 220px;
+    line-height: 64px;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.logo > a {
+    font-size: 24px;
+    vertical-align: middle;
+    white-space: nowrap;
+    color: white;
+}
+
+.top-nav {
+    width: 100%;
+    height: 64px;
+    padding: 0 0 0 220px;
+}
+
+.header-container > .top-nav {
+    padding: 0 0 0 220px;
+}
+
+.header-container.header-fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.top-nav .nav-left {
+    float: left;
+    padding: 0;
+}
+
+.top-nav .nav-left, .top-nav .nav-right {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.top-nav .nav-right {
+    margin-right: 15px;
+}
+
+.top-nav .nav-left a, .top-nav .nav-right a {
+    padding: 17px 15px;
+    text-align: center;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    display: block;
+    height: 64px;
+}
+
+.top-nav .nav-right span {
+    text-align: center;
+    line-height: 32px;
+}
+
+.top-nav .nav-right li:hover {
+    background-color: #EDF0F1;
+}
+
+.top-nav .nav-right img {
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.top-nav li {
+    float: left;
+}
+
+.header-container > .top-header .top-nav > ul {
+    margin-bottom: 0;
+}
+
+.nav-container {
+    position: fixed;
+    top: 64px;
+    position: fixed;
+    bottom: 0;
+    float: none;
+    width: 220px;
+    z-index: 11;
+    background-color: #262B33;
+}
+
+.nav-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-wrapper ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.main-container {
+    padding-top: 30px;
+    min-height:100%;
+}
+
+.page {
+    margin-left: 240px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding-bottom:15px;
+    
+}
+
+.content-container {
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-right: 40px;
+    overflow: hidden;
+    min-height: 100%;
+    background-color: white;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.nav > li {
+
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+.nav-container.bg-dark .nav > li.active > a {
+    color: white;
+  
+}
+
+.nav a {
+	  // font-weight: bold;
+    color: #ccc;
+    color: white;
+
+}
+
+.nav-title > span {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 15px 0px 0px;
+    font-size: 12px;
+    display: block;
+    padding: 10px 15px;
+}
+
+.card-block{height:250px;}
+
+/************** LOADER ************/
+.sk-loader-circle {
+    width: 24px;
+    height: 24px;
+    border-top: 2px solid rgba(163,175,183,.5);
+    border-right: 2px solid rgba(163,175,183,.5);
+    border-bottom: 2px solid rgba(163,175,183,.5);
+    border-left: 2px solid #a3afb7;
+    border-radius: 50%;
+    -webkit-animation: sk-loader-circle 1.1s infinite linear;
+    -o-animation: sk-loader-circle 1.1s infinite linear;
+    animation: sk-loader-circle 1.1s infinite linear;
+}
+
+@-webkit-keyframes sk-loader-circle {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+@-o-keyframes sk-loader-circle {
+    0% {
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0)
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+@keyframes sk-loader-circle {
+    0% {
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        transform: rotate(0)
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+.sk-chasing-dots,
+.sk-three-bounce,
+.sk-wave {
+   text-align: center
+}
+.sk-rotating-plane{
+    background-color: #6164C1
+}
+.sk-circle .sk-child:before,
+.sk-fading-circle .sk-circle:before {
+    content: '';
+    margin: 0 auto;
+    display: block
+}
+.sk-rotating-plane {
+    width: 24px;
+    height: 24px;
+    -webkit-animation: sk-rotatePlane 1.2s infinite ease-in-out;
+    animation: sk-rotatePlane 1.2s infinite ease-in-out
+}
+@-webkit-keyframes sk-rotatePlane {
+    0% {
+        -webkit-transform: perspective(120px) rotateX(0) rotateY(0);
+        transform: perspective(120px) rotateX(0) rotateY(0)
+    }
+    50% {
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0);
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0)
+    }
+    100% {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
+    }
+}
+@keyframes sk-rotatePlane {
+    0% {
+        -webkit-transform: perspective(120px) rotateX(0) rotateY(0);
+        transform: perspective(120px) rotateX(0) rotateY(0)
+    }
+    50% {
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0);
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0)
+    }
+    100% {
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
+    }
+}
+.sk-double-bounce {
+    width: 24px;
+    height: 24px;
+    position: relative
+}
+.sk-double-bounce .sk-child {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #6164C1;
+    opacity: .6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-doubleBounce 2s infinite ease-in-out;
+    animation: sk-doubleBounce 2s infinite ease-in-out
+}
+.sk-chasing-dots .sk-child,
+.sk-circle .sk-child:before,
+.sk-fading-circle .sk-circle:before,
+.sk-spinner-pulse,
+.sk-three-bounce .sk-child {
+    border-radius: 100%;
+    background-color: #6164C1
+}
+.sk-double-bounce .sk-double-bounce2 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s
+}
+@-webkit-keyframes sk-doubleBounce {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+@keyframes sk-doubleBounce {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+.sk-wave {
+    width: 50px;
+    height: 24px;
+    font-size: 10px
+}
+.sk-wave .sk-rect {
+    background-color: #A51E37;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: sk-waveStretchDelay 1.2s infinite ease-in-out;
+    animation: sk-waveStretchDelay 1.2s infinite ease-in-out
+}
+.sk-wave .sk-rect1 {
+    -webkit-animation-delay: -1.2s;
+    animation-delay: -1.2s
+}
+.sk-wave .sk-rect2 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s
+}
+.sk-wave .sk-rect3 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s
+}
+.sk-wave .sk-rect4 {
+    -webkit-animation-delay: -.9s;
+    animation-delay: -.9s
+}
+.sk-wave .sk-rect5 {
+    -webkit-animation-delay: -.8s;
+    animation-delay: -.8s
+}
+@-webkit-keyframes sk-waveStretchDelay {
+    0%, 100%, 40% {
+        -webkit-transform: scaleY(.4);
+        transform: scaleY(.4)
+    }
+    20% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1)
+    }
+}
+@keyframes sk-waveStretchDelay {
+    0%, 100%, 40% {
+        -webkit-transform: scaleY(.4);
+        transform: scaleY(.4)
+    }
+    20% {
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1)
+    }
+}
+.sk-wandering-cubes {
+    width: 24px;
+    height: 24px;
+    position: relative
+}
+.sk-wandering-cubes .sk-cube {
+    background-color: #A51E37;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-wanderingCube 1.8s ease-in-out -1.8s infinite both;
+    animation: sk-wanderingCube 1.8s ease-in-out -1.8s infinite both
+}
+.sk-wandering-cubes .sk-cube2 {
+    -webkit-animation-delay: -.9s;
+    animation-delay: -.9s
+}
+@-webkit-keyframes sk-wanderingCube {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+    25% {
+        -webkit-transform: translateX(30px) rotate(-90deg) scale(.5);
+        transform: translateX(30px) rotate(-90deg) scale(.5)
+    }
+    50% {
+        -webkit-transform: translateX(30px) translateY(30px) rotate(-179deg);
+        transform: translateX(30px) translateY(30px) rotate(-179deg)
+    }
+    50.1% {
+        -webkit-transform: translateX(30px) translateY(30px) rotate(-180deg);
+        transform: translateX(30px) translateY(30px) rotate(-180deg)
+    }
+    75% {
+        -webkit-transform: translateX(0) translateY(30px) rotate(-270deg) scale(.5);
+        transform: translateX(0) translateY(30px) rotate(-270deg) scale(.5)
+    }
+    100% {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg)
+    }
+}
+@keyframes sk-wanderingCube {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+    25% {
+        -webkit-transform: translateX(30px) rotate(-90deg) scale(.5);
+        transform: translateX(30px) rotate(-90deg) scale(.5)
+    }
+    50% {
+        -webkit-transform: translateX(30px) translateY(30px) rotate(-179deg);
+        transform: translateX(30px) translateY(30px) rotate(-179deg)
+    }
+    50.1% {
+        -webkit-transform: translateX(30px) translateY(30px) rotate(-180deg);
+        transform: translateX(30px) translateY(30px) rotate(-180deg)
+    }
+    75% {
+        -webkit-transform: translateX(0) translateY(30px) rotate(-270deg) scale(.5);
+        transform: translateX(0) translateY(30px) rotate(-270deg) scale(.5)
+    }
+    100% {
+        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg)
+    }
+}
+.sk-spinner-pulse {
+    width: 24px;
+    height: 24px;
+    -webkit-animation: sk-pulseScaleOut 1s infinite ease-in-out;
+    animation: sk-pulseScaleOut 1s infinite ease-in-out
+}
+@-webkit-keyframes sk-pulseScaleOut {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0
+    }
+}
+@keyframes sk-pulseScaleOut {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0
+    }
+}
+.sk-chasing-dots {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    -webkit-animation: sk-chasingDotsRotate 2s infinite linear;
+    animation: sk-chasingDotsRotate 2s infinite linear
+}
+.sk-chasing-dots .sk-child {
+    width: 60%;
+    height: 60%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    -webkit-animation: sk-chasingDotsBounce 2s infinite ease-in-out;
+    animation: sk-chasingDotsBounce 2s infinite ease-in-out
+}
+.sk-chasing-dots .sk-dot2 {
+    top: auto;
+    bottom: 0;
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s
+}
+@-webkit-keyframes sk-chasingDotsRotate {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+@keyframes sk-chasingDotsRotate {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+@-webkit-keyframes sk-chasingDotsBounce {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+@keyframes sk-chasingDotsBounce {
+    0%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+.sk-three-bounce {
+    width: 80px
+}
+.sk-three-bounce .sk-child {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    -webkit-animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;
+    animation: sk-three-bounce 1.4s ease-in-out 0s infinite both
+}
+.sk-three-bounce .sk-bounce1 {
+    -webkit-animation-delay: -.32s;
+    animation-delay: -.32s
+}
+.sk-three-bounce .sk-bounce2 {
+    -webkit-animation-delay: -.16s;
+    animation-delay: -.16s
+}
+@-webkit-keyframes sk-three-bounce {
+    0%, 100%, 80% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+@keyframes sk-three-bounce {
+    0%, 100%, 80% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+.sk-circle {
+    width: 24px;
+    height: 24px;
+    position: relative
+}
+.sk-circle .sk-child {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0
+}
+.sk-circle .sk-child:before {
+    width: 15%;
+    height: 15%;
+    -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
+    animation: sk-circleBounceDelay 1.2s infinite ease-in-out both
+}
+.sk-circle .sk-circle2 {
+    -webkit-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    transform: rotate(30deg)
+}
+.sk-circle .sk-circle3 {
+    -webkit-transform: rotate(60deg);
+    -ms-transform: rotate(60deg);
+    transform: rotate(60deg)
+}
+.sk-circle .sk-circle4 {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+.sk-circle .sk-circle5 {
+    -webkit-transform: rotate(120deg);
+    -ms-transform: rotate(120deg);
+    transform: rotate(120deg)
+}
+.sk-circle .sk-circle6 {
+    -webkit-transform: rotate(150deg);
+    -ms-transform: rotate(150deg);
+    transform: rotate(150deg)
+}
+.sk-circle .sk-circle7 {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+.sk-circle .sk-circle8 {
+    -webkit-transform: rotate(210deg);
+    -ms-transform: rotate(210deg);
+    transform: rotate(210deg)
+}
+.sk-circle .sk-circle9 {
+    -webkit-transform: rotate(240deg);
+    -ms-transform: rotate(240deg);
+    transform: rotate(240deg)
+}
+.sk-circle .sk-circle10 {
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg)
+}
+.sk-circle .sk-circle11 {
+    -webkit-transform: rotate(300deg);
+    -ms-transform: rotate(300deg);
+    transform: rotate(300deg)
+}
+.sk-circle .sk-circle12 {
+    -webkit-transform: rotate(330deg);
+    -ms-transform: rotate(330deg);
+    transform: rotate(330deg)
+}
+.sk-circle .sk-circle2:before {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s
+}
+.sk-circle .sk-circle3:before {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s
+}
+.sk-circle .sk-circle4:before {
+    -webkit-animation-delay: -.9s;
+    animation-delay: -.9s
+}
+.sk-circle .sk-circle5:before {
+    -webkit-animation-delay: -.8s;
+    animation-delay: -.8s
+}
+.sk-circle .sk-circle6:before {
+    -webkit-animation-delay: -.7s;
+    animation-delay: -.7s
+}
+.sk-circle .sk-circle7:before {
+    -webkit-animation-delay: -.6s;
+    animation-delay: -.6s
+}
+.sk-circle .sk-circle8:before {
+    -webkit-animation-delay: -.5s;
+    animation-delay: -.5s
+}
+.sk-circle .sk-circle9:before {
+    -webkit-animation-delay: -.4s;
+    animation-delay: -.4s
+}
+.sk-circle .sk-circle10:before {
+    -webkit-animation-delay: -.3s;
+    animation-delay: -.3s
+}
+.sk-circle .sk-circle11:before {
+    -webkit-animation-delay: -.2s;
+    animation-delay: -.2s
+}
+.sk-circle .sk-circle12:before {
+    -webkit-animation-delay: -.1s;
+    animation-delay: -.1s
+}
+@-webkit-keyframes sk-circleBounceDelay {
+    0%, 100%, 80% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+@keyframes sk-circleBounceDelay {
+    0%, 100%, 80% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+}
+.sk-cube-grid {
+    width: 24px;
+    height: 24px
+}
+.sk-cube-grid .sk-cube {
+    width: 33%;
+    height: 33%;
+    background-color: #6164C1;
+    float: left;
+    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out
+}
+.sk-cube-grid .sk-cube1 {
+    -webkit-animation-delay: .2s;
+    animation-delay: .2s
+}
+.sk-cube-grid .sk-cube2 {
+    -webkit-animation-delay: .3s;
+    animation-delay: .3s
+}
+.sk-cube-grid .sk-cube3 {
+    -webkit-animation-delay: .4s;
+    animation-delay: .4s
+}
+.sk-cube-grid .sk-cube4 {
+    -webkit-animation-delay: .1s;
+    animation-delay: .1s
+}
+.sk-cube-grid .sk-cube5 {
+    -webkit-animation-delay: .2s;
+    animation-delay: .2s
+}
+.sk-cube-grid .sk-cube6 {
+    -webkit-animation-delay: .3s;
+    animation-delay: .3s
+}
+.sk-cube-grid .sk-cube7 {
+    -webkit-animation-delay: 0ms;
+    animation-delay: 0ms
+}
+.sk-cube-grid .sk-cube8 {
+    -webkit-animation-delay: .1s;
+    animation-delay: .1s
+}
+.sk-cube-grid .sk-cube9 {
+    -webkit-animation-delay: .2s;
+    animation-delay: .2s
+}
+@-webkit-keyframes sk-cubeGridScaleDelay {
+    0%, 100%, 70% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1)
+    }
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1)
+    }
+}
+@keyframes sk-cubeGridScaleDelay {
+    0%, 100%, 70% {
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1)
+    }
+    35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1)
+    }
+}
+.sk-fading-circle {
+    width: 24px;
+    height: 24px;
+    position: relative
+}
+.sk-fading-circle .sk-circle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0
+}
+.sk-fading-circle .sk-circle:before {
+    width: 15%;
+    height: 15%;
+    -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
+    animation: sk-circleFadeDelay 1.2s infinite ease-in-out both
+}
+.sk-fading-circle .sk-circle2 {
+    -webkit-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    transform: rotate(30deg)
+}
+.sk-fading-circle .sk-circle3 {
+    -webkit-transform: rotate(60deg);
+    -ms-transform: rotate(60deg);
+    transform: rotate(60deg)
+}
+.sk-fading-circle .sk-circle4 {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+.sk-fading-circle .sk-circle5 {
+    -webkit-transform: rotate(120deg);
+    -ms-transform: rotate(120deg);
+    transform: rotate(120deg)
+}
+.sk-fading-circle .sk-circle6 {
+    -webkit-transform: rotate(150deg);
+    -ms-transform: rotate(150deg);
+    transform: rotate(150deg)
+}
+.sk-fading-circle .sk-circle7 {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+.sk-fading-circle .sk-circle8 {
+    -webkit-transform: rotate(210deg);
+    -ms-transform: rotate(210deg);
+    transform: rotate(210deg)
+}
+.sk-fading-circle .sk-circle9 {
+    -webkit-transform: rotate(240deg);
+    -ms-transform: rotate(240deg);
+    transform: rotate(240deg)
+}
+.sk-fading-circle .sk-circle10 {
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg)
+}
+.sk-fading-circle .sk-circle11 {
+    -webkit-transform: rotate(300deg);
+    -ms-transform: rotate(300deg);
+    transform: rotate(300deg)
+}
+.sk-fading-circle .sk-circle12 {
+    -webkit-transform: rotate(330deg);
+    -ms-transform: rotate(330deg);
+    transform: rotate(330deg)
+}
+.sk-fading-circle .sk-circle2:before {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s
+}
+.sk-fading-circle .sk-circle3:before {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s
+}
+.sk-fading-circle .sk-circle4:before {
+    -webkit-animation-delay: -.9s;
+    animation-delay: -.9s
+}
+.sk-fading-circle .sk-circle5:before {
+    -webkit-animation-delay: -.8s;
+    animation-delay: -.8s
+}
+.sk-fading-circle .sk-circle6:before {
+    -webkit-animation-delay: -.7s;
+    animation-delay: -.7s
+}
+.sk-fading-circle .sk-circle7:before {
+    -webkit-animation-delay: -.6s;
+    animation-delay: -.6s
+}
+.sk-fading-circle .sk-circle8:before {
+    -webkit-animation-delay: -.5s;
+    animation-delay: -.5s
+}
+.sk-fading-circle .sk-circle9:before {
+    -webkit-animation-delay: -.4s;
+    animation-delay: -.4s
+}
+.sk-fading-circle .sk-circle10:before {
+    -webkit-animation-delay: -.3s;
+    animation-delay: -.3s
+}
+.sk-fading-circle .sk-circle11:before {
+    -webkit-animation-delay: -.2s;
+    animation-delay: -.2s
+}
+.sk-fading-circle .sk-circle12:before {
+    -webkit-animation-delay: -.1s;
+    animation-delay: -.1s
+}
+@-webkit-keyframes sk-circleFadeDelay {
+    0%, 100%, 39% {
+        opacity: 0
+    }
+    40% {
+        opacity: 1
+    }
+}
+@keyframes sk-circleFadeDelay {
+    0%, 100%, 39% {
+        opacity: 0
+    }
+    40% {
+        opacity: 1
+    }
+}
+.sk-folding-cube {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg)
+}
+.sk-folding-cube .sk-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1)
+}
+.sk-folding-cube .sk-cube:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6164C1;
+    -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+    animation: sk-foldCubeAngle 2.4s infinite linear both;
+    -webkit-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    transform-origin: 100% 100%
+}
+.sk-folding-cube .sk-cube2 {
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+    transform: scale(1.1) rotateZ(90deg)
+}
+.sk-folding-cube .sk-cube3 {
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+    transform: scale(1.1) rotateZ(180deg)
+}
+.sk-folding-cube .sk-cube4 {
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+    transform: scale(1.1) rotateZ(270deg)
+}
+.sk-folding-cube .sk-cube2:before {
+    -webkit-animation-delay: .3s;
+    animation-delay: .3s
+}
+.sk-folding-cube .sk-cube3:before {
+    -webkit-animation-delay: .6s;
+    animation-delay: .6s
+}
+.sk-folding-cube .sk-cube4:before {
+    -webkit-animation-delay: .9s;
+    animation-delay: .9s
+}
+@-webkit-keyframes sk-foldCubeAngle {
+    0%, 10% {
+        -webkit-transform: perspective(140px) rotateX(-180deg);
+        transform: perspective(140px) rotateX(-180deg);
+        opacity: 0
+    }
+    25%,
+    75% {
+        -webkit-transform: perspective(140px) rotateX(0);
+        transform: perspective(140px) rotateX(0);
+        opacity: 1
+    }
+    100%,
+    90% {
+        -webkit-transform: perspective(140px) rotateY(180deg);
+        transform: perspective(140px) rotateY(180deg);
+        opacity: 0
+    }
+}
+@keyframes sk-foldCubeAngle {
+    0%, 10% {
+        -webkit-transform: perspective(140px) rotateX(-180deg);
+        transform: perspective(140px) rotateX(-180deg);
+        opacity: 0
+    }
+    25%,
+    75% {
+        -webkit-transform: perspective(140px) rotateX(0);
+        transform: perspective(140px) rotateX(0);
+        opacity: 1
+    }
+    100%,
+    90% {
+        -webkit-transform: perspective(140px) rotateY(180deg);
+        transform: perspective(140px) rotateY(180deg);
+        opacity: 0
+    }
+}
+/************** LOADER ************/
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
+    padding: 0 .75rem;
+    border-top: .0625rem solid rgba(0,0,0,.03);
+    z-index: 1000;
+    padding-left:240px;
+}
+
+label.required:after {
+  content:" *";
+}
+
+.chart-area
+{
+
+ } 
+.chart-filled
+{
+	fill: $brand-primary;
+}
+.chart-empty
+{
+	fill: #dedede;
+}
+
+.action{ padding:2px; border: 1px #ddd solid; margin-bottom:4px;}
+
+ .good{
+ border-left: 4px #66B80B solid;
+
+}
+
+ .bad{
+ border-left: 4px #EB313F solid;
+
+}
+#changlog ul li {
+  padding-bottom: 8px; }
+
+#changlog code {
+  font-family: 'Menlo', 'Consolas', monospace;
+  font-size: 13px;
+  background: #DEE2E8;
+  padding: 3px 5px;
+  color: #E91E63; }
+
+#changelog .title {
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0.7; }
+
+#changelog .version {
+  border-top: 3px solid rgba(0, 0, 0, 0.12);
+  font-size: 24px;
+  padding: 32px 0 0 0;
+  margin-top: 48px; }
+  #changelog .version .date {
+    font-size: 16px;
+    opacity: 0.5; }
+
+#changelog .log-group-title {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 16px;
+  padding-bottom: 8px;
+  margin-top: 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+  #changelog .log-group-title:before {
+    display: inline-block;
+    position: relative;
+    content: '';
+    width: 8px;
+    height: 8px;
+    top: -2px;
+    margin-right: 10px; }
+  #changelog .log-group-title.fixes:before {
+    background: #FDA026; }
+  #changelog .log-group-title.breaking-changes:before {
+    background: #FD3F23; }
+  #changelog .log-group-title.improvements:before {
+    background: #7A49A3; }
+  #changelog .log-group-title.new:before {
+    background: #2FA342; }
+
+
+   .bootstrap-datetimepicker-widget table {
+  width: 100%;
+  margin: 0;
+}
+.bootstrap-datetimepicker-widget table td,
+.bootstrap-datetimepicker-widget table th {
+  text-align: center;
+  border-radius: 4px;
+}
+.bootstrap-datetimepicker-widget table th {
+  height: 20px;
+  line-height: 20px;
+  width: 20px;
+}
+.bootstrap-datetimepicker-widget table th.picker-switch {
+  width: 145px;
+}
+.bootstrap-datetimepicker-widget table th.disabled,
+.bootstrap-datetimepicker-widget table th.disabled:hover {
+  background: none;
+  color: #777777;
+  cursor: not-allowed;
+}
+.bootstrap-datetimepicker-widget table th.prev::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Previous Month";
+}
+.bootstrap-datetimepicker-widget table th.next::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Next Month";
+}
+.bootstrap-datetimepicker-widget table thead tr:first-child th {
+  cursor: pointer;
+}
+.bootstrap-datetimepicker-widget table thead tr:first-child th:hover {
+  background: #eeeeee;
+}
+.bootstrap-datetimepicker-widget table td {
+  height: 54px;
+  line-height: 54px;
+  width: 54px;
+}
+.bootstrap-datetimepicker-widget table td.cw {
+  font-size: .8em;
+  height: 20px;
+  line-height: 20px;
+  color: #777777;
+}
+.bootstrap-datetimepicker-widget table td.day {
+  height: 20px;
+  line-height: 20px;
+  width: 20px;
+}
+.bootstrap-datetimepicker-widget table td.day:hover,
+.bootstrap-datetimepicker-widget table td.hour:hover,
+.bootstrap-datetimepicker-widget table td.minute:hover,
+.bootstrap-datetimepicker-widget table td.second:hover {
+  background: #eeeeee;
+  cursor: pointer;
+}
+.bootstrap-datetimepicker-widget table td.old,
+.bootstrap-datetimepicker-widget table td.new {
+  color: #777777;
+}
+.bootstrap-datetimepicker-widget table td.today {
+  position: relative;
+}
+.bootstrap-datetimepicker-widget table td.today:before {
+  content: '';
+  display: inline-block;
+  border: solid transparent;
+  border-width: 0 0 7px 7px;
+  border-bottom-color: #337ab7;
+  border-top-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+}
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+  background-color: #337ab7;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.bootstrap-datetimepicker-widget table td.active.today:before {
+  border-bottom-color: #fff;
+}
+.bootstrap-datetimepicker-widget table td.disabled,
+.bootstrap-datetimepicker-widget table td.disabled:hover {
+  background: none;
+  color: #777777;
+  cursor: not-allowed;
+}
+.bootstrap-datetimepicker-widget table td span {
+  display: inline-block;
+  width: 54px;
+  height: 54px;
+  line-height: 54px;
+  margin: 2px 1.5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.bootstrap-datetimepicker-widget table td span:hover {
+  background: #eeeeee;
+}
+.bootstrap-datetimepicker-widget table td span.active {
+  background-color: #337ab7;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.bootstrap-datetimepicker-widget table td span.old {
+  color: #777777;
+}
+.bootstrap-datetimepicker-widget table td span.disabled,
+.bootstrap-datetimepicker-widget table td span.disabled:hover {
+  background: none;
+  color: #777777;
+  cursor: not-allowed;
+}
+.bootstrap-datetimepicker-widget.usetwentyfour td.hour {
+  height: 27px;
+  line-height: 27px;
+}
+
+.alert-notice {
+  @extend .alert-info
+}
+
+.alert-alert {
+  @extend .alert-danger
+}
+
+.alert-error {
+  @extend .alert-danger
+}
+
+.glyphicon{
+	color: $brand-primary;
+}
+
+body{
+	background-color:#DFDFDF !important;
+	background-color:#f1f2f7 !important;
+}
+
+.page{margin-bottom:25px; padding-bottom:25px; min-height:100%;}
+
+.underlined{ border-bottom: 1px #ddd solid;}
+
+.log-body  {
+    clear: left;
+    min-height: 42px;
+    padding: 7px 7px;
+    color: #F1F1F1;
+    background-color: #2A2A2A;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 19px;
+    // white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-top: 0px;
+
+}
+.green{color: #21AB15;}
+.red{color: #FFB6B0;}
+.log-body .good-case {color: #CEFFAB;}
+.log-body .bad-case {color: #FFB6B0;}
+
+[data-sync="async"],[data-sync="async"]:focus {
+  box-shadow: 0 0 10px red;
+}
+
+[data-sync="progress"],[data-sync="progress"]:focus {
+  box-shadow: 0 0 10px orange;
+}
+
+[data-sync="sync"],[data-sync="sync"]:focus {
+  box-shadow: 0 0 10px #44A662;
+}
+
+.feedback{
+  font-style: italic;
+  border: 1px solid #ddd;
+  padding:3px;
+  padding:10px;
+}
+
+.subtitle{
+  color:gray;
+  margin-top:-8px;
+}
+
+/* I know this is a hack, but twice the same message is simply ugly and devise need the extra message iterator */
+#notice{display:none; visibility: hidden;}
+
+.panel-heading {
+  border-bottom: 2px solid rgb(165, 30, 55);
+  border-color: rgb(165, 30, 55) !important;
+}
+
+.panel-default {
+    border: 1px solid #e8e8e8;
+  }
+
+.circ-img{
+	border-radius: 50%;
+   vertical-align: middle;
+    width: 40px;
+    height: 40px;
+
+}
+
+.rate-star{
+    background: url(asset-path('star.png')) left -1000px repeat-x;
+    position: relative;
+    /*width: 125px; this is setted dynamically */
+    height: 25px;
+    overflow: hidden;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-position: left top;
+}
+
+.with-nav-tabs .panel-heading {
+    padding: 0 !important;
+}
+.with-nav-tabs .nav a {
+    color: #bbb;
+  }
+.with-nav-tabs  .panel-heading{
+	background-color:white !important;
+}
+.with-nav-tabs {
+	border:1px solid white!important;
+	border-color:white !important;
+}
+
+.blob-code-inner {
+    overflow: visible;
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 12px;
+    color: #333;
+    word-wrap: normal;
+    white-space: pre;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.blob-num {
+    width: 1%;
+    min-width: 50px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 12px;
+    line-height: 18px;
+    color: rgba(0,0,0,0.3);
+    text-align: right;
+    white-space: nowrap;
+    vertical-align: top;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: solid #eee;
+    border-width: 0 1px 0 0;
+}
+.add-line-comment {
+    position: relative;
+    z-index: 5;
+    opacity: 0;
+    float: left;
+ 	margin-left:-18px;
+ 	margin-right:8px;
+    width: 22px  !important;
+    height: 22px  !important;
+    line-height: 21px;
+    color: #fff !important;;
+    text-align: center;
+    text-indent: 0;
+    cursor: pointer;
+    background-color: #4078c0;
+    background-image: -webkit-linear-gradient(#5386c6, #4078c0);
+    background-image: linear-gradient(#5386c6, #4078c0);
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    -webkit-transition: -webkit-transform 0.1s ease-in-out;
+    transition: transform 0.1s ease-in-out;
+    -webkit-transform: scale(0.8, 0.8);
+    transform: scale(0.8, 0.8);
+}
+.add-line-comment:hover{opacity:1;
+background-color: #4078c0;
+    background-image: -webkit-linear-gradient(#0CA047, #299a0b);
+    background-image: linear-gradient(#0CA047, #299a0b);
+}
+.line-plus{color:white;}
+
+.blob-comment {
+    padding-left: 10px;
+    border: 1px solid #7F8186;;
+    width: 100%;
+    background-color: #E6E6E6;
+    color: #0750E0;
+    margin-left: -15px;
+    border-left: 15px solid #7F8186;
+}
+
+tr:hover .add-line-comment{opacity:1; }
+.material-icons{
+	float: left;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  margin: -2px 10px -2px 0;
+  font-size: 24px;
+  line-height: 24px;
+  color:white;
+}
+
+ .nav>li>a {
+    padding: 10px 20px;}

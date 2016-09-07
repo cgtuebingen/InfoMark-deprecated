@@ -1,0 +1,303 @@
+<%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js" %>
+<% cache("stats", :expires_in => 30.minutes) do %>
+<h1>Statistiken</h1>
+<dl class="dl-horizontal">
+  <dt>registrierte Benutzer</dt>
+  <dd><%= User.all.count %></dd>
+  <dt>registrierte Admins</dt>
+  <dd><%= User.where(root: true).count %></dd>
+</dl>
+<h2>Kursstatistiken</h2>
+<% course = Course.find(1) %>
+<div class="row">
+  <div class="col-md-4">
+    <dl class="dl-horizontal">
+      <dt>eingeschriebene Studenten</dt>
+      <dd><%= Enrollment.where(course: course, role:[0]).count %></dd>
+      <dt>eingeschriebene Tutoren</dt>
+      <dd><%= Enrollment.where(course: course, role:[1,2]).count %></dd>
+    </dl>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <canvas id="user_distribution" width="100" height="100"></canvas>
+  </div>
+</div>
+<h2>Statistiken - pro Blatt</h2>
+<div class="row">
+  <div class="col-md-6">
+    <dl class="dl-horizontal">
+      <dt>Abgaben</dt>
+      <dd><%= Submission.where(exercise_task:ExerciseTask.where(exercise_sheet: ExerciseSheet.where(course_id:1))).count %></dd>
+    </dl>
+  </div>
+  <div class="col-md-4">
+    <dl class="dl-horizontal">
+      <dt>Bewertungen</dt>
+      <dd><%= Grading.where(exercise_sheet_id: ExerciseSheet.where(course_id:1).pluck(&:id)).count %></dd>
+    </dl>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <canvas id="submissions_count" width="100" height="100"></canvas>
+    </div>
+    <div class="col-md-4">
+      <canvas id="gradings_chart" width="100" height="100"></canvas>
+    </div>
+
+
+
+    <div class="col-md-4">
+      <canvas id="points_distribution" width="100" height="100"></canvas>
+    </div>
+
+</div>
+
+<h2>Statistiken - pro Aufgabe</h2>
+<div class="row">
+  <div class="col-md-6">
+    <dl class="dl-horizontal">
+      <dt>Abgaben</dt>
+      <dd><%= Submission.where(exercise_task:ExerciseTask.where(exercise_sheet: ExerciseSheet.where(course_id:1))).count %></dd>
+    </dl>
+  </div>
+  <div class="col-md-4">
+    <dl class="dl-horizontal">
+      <dt>Bewertungen</dt>
+      <dd><%= Grading.where(exercise_sheet_id: ExerciseSheet.where(course_id:1).pluck(&:id)).count %></dd>
+    </dl>
+  </div>
+  <div class="row">
+
+    <div class="col-md-4">
+      <canvas id="task-submissions" width="100" height="100"></canvas>
+    </div>
+    <div class="col-md-4">
+      <canvas id="task-points" width="100" height="100"></canvas>
+    </div>
+    <div class="col-md-4">
+      <canvas id="task-points-distribution" width="100" height="100"></canvas>
+    </div>
+  </div>
+
+</div>
+
+<%
+
+current_course = Course.find(1)
+all_exercises = ExerciseSheet.where(course: current_course).order(:order).pluck(:id)
+all_tasks  = ExerciseTask.where(exercise_sheet_id: all_exercises).order(:exercise_sheet_id,:order).pluck(:id)
+
+%>
+<script type="text/javascript">
+  function hexToR(h,l) {
+    if(typeof l === "undefined") {
+        l=1;
+    }
+  	return "rgba("+parseInt((cutHex(h)).substring(0,2),16) +","+parseInt((cutHex(h)).substring(2,4),16)+","+parseInt((cutHex(h)).substring(4,6),16)+","+l+")";
+  }
+  function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7).toLowerCase():h.toLowerCase()}
+    var myPieChart = new Chart(document.getElementById("user_distribution"),{
+                type: 'pie',
+                options: {
+        title: {
+            display: true,
+            text: 'Mitgliederverteilung'
+        }
+    },
+                data: {
+                labels: [
+                    "Studenten",
+                    "Tutoren",
+                    "Super-Tutoren",
+                    "Admins"
+                ],
+                datasets: [
+                    {
+                        data: <%= Enrollment.where(course_id: 1).order(:role).group(:role).count.map{|x| x[1]} %>,
+                        backgroundColor: getscheme("YlOrRd",3),
+  
+                    }]
+            }
+            });
+  
+            var myLineChart = new Chart(document.getElementById("submissions_count"), {
+              type: 'line', 
+              title: {
+            display: true,
+            text: 'Submission Status'
+        },
+
+              data: {
+              labels: <%= ExerciseSheet.where(id: all_exercises).order(:order).pluck(:order) %>,
+              datasets: [
+                  {
+                  	lineTension:0,
+                      label: "Abgaben",
+                      fill: false,
+                      backgroundColor: hexToR("#1b9e77"),
+                      borderColor: hexToR("#1b9e77",0.3),
+                      data: <%= all_exercises.map{ |n| Submission.where(exercise_task:ExerciseTask.where(exercise_sheet_id:n )).count}.map {|e| e ? e : 0} %>,
+                  },
+                   {
+                  	lineTension:0,
+                      label: "server error",
+                      fill: false,
+                      backgroundColor: hexToR("#e41a1c"),
+                      borderColor: hexToR("#e41a1c",0.3),
+                      data: <%= all_exercises.map{ |n| 
+                      	Submission.where(status:1, exercise_task:ExerciseTask.where(exercise_sheet_id:n )).count}.map {|e| e ? e : 0} %>,
+                  }
+                  ,
+                   {
+                  	lineTension:0,
+                      label: "perfekte Abgaben",
+                      fill: false,
+                      backgroundColor: hexToR("#f1a340"),
+                      borderColor: hexToR("#f1a340",0.3),
+                      data: <%= all_exercises.map{ |n| 
+                      	Submission.where(exercise_task:ExerciseTask.where(exercise_sheet_id:n )).count-Submission.where(exercise_task:ExerciseTask.where(exercise_sheet_id:n ))
+                      	.pluck(:log).map {|e| e ? e : ""}.select{ |i| i[/false/] }.count
+
+
+                      }.map {|e| e ? e : 0} %>,
+                  }
+              ]
+          }
+          });
+
+
+
+            var myLineChart = new Chart(document.getElementById("gradings_chart"), {
+              type: 'bar',
+               title: {
+            display: true,
+            text: 'Punktevergabe'
+        },
+              data: {
+              labels: <%= ExerciseSheet.where(course_id:1).order(:order).pluck(:order)%>,
+              datasets: [
+                  {
+                  	lineTension:0,
+                      label: "durch.",
+                      fill: false,
+                      backgroundColor: hexToR("#7570b3",0.3),
+                      borderColor: hexToR("#7570b3"),
+                      borderWidth: 1,
+                      data: <%= all_exercises.map{ |n| Grading.where(ready:true,exercise_sheet_id: n).sum(:points)/Grading.where(ready:true,exercise_sheet_id: n).count.to_f * ExerciseSheet.find(n).exercise_tasks.count}.map {|e| e ? e : 0} %>,
+                  }
+              ]
+          }
+          });
+
+var myLineChart = new Chart(document.getElementById("task-submissions"), {
+              type: 'line',
+               title: {
+            display: true,
+            text: 'Punktevergabe'
+        },
+              data: {
+              labels: <%= all_tasks%>,
+              datasets: [
+                  {
+                  	lineTension:0,
+                      label: "max.",
+                      fill: false,
+                      backgroundColor: hexToR("#1b9e77"),
+                      borderColor: hexToR("#1b9e77",0.3),
+                      data: <%= all_tasks.map{ |n| Grading.where(ready:true,submission_id: Submission.where(exercise_task_id: n).pluck(:id)).count}.map {|e| e ? e : 0} %>,
+                  }
+              ]
+          }
+          });
+                
+ var myLineChart = new Chart(document.getElementById("task-points"), {
+              type: 'bar',
+               title: {
+            display: true,
+            text: 'Punktevergabe'
+        },
+              data: {
+              labels: <%= all_tasks%>,
+              datasets: [
+                  {
+                  	lineTension:0,
+                      label: "durchschn.",
+                      fill: false,
+                      backgroundColor: hexToR("#1b9e77",0.3),
+                      borderColor: hexToR("#1b9e77"),
+                      borderWidth: 1,
+                      data: <%= all_tasks.map{ |n| 100.0/ExerciseTask.find(n).max_points*(Grading.where(ready:true,submission_id: Submission.where(exercise_task_id: n)).sum(:points)/Grading.where(ready:true,submission_id: Submission.where(exercise_task_id: n)).count.to_f) }.map {|e| e ? e : 0} %>
+                    
+                  }
+              ]
+          }
+          });
+
+  var myLineChart = new Chart(document.getElementById("task-points-distribution"), {
+              type: 'line',
+               title: {
+            display: true,
+            text: 'Punktevergabe'
+        },
+              data: {
+              labels: <%= all_tasks%>,
+               datasets: [
+               <% [0.2,0.4,0.5,0.6,0.7,0.9].each_with_index do |bound,idx| %>
+             
+
+
+     
+                  {
+                  	lineTension:0,
+                      label: "> <%= bound*100.0 %> %",
+                      fill: false,
+                      pointBorderColor: hexToR(getscheme("Accent",6)[<%= idx %>]),
+                      pointBackgroundColor: hexToR(getscheme("Accent",6)[<%= idx %>]),
+                      backgroundColor: hexToR(getscheme("Accent",6)[<%= idx %>]),
+                      borderColor: hexToR(getscheme("Accent",6)[<%= idx %>],0.3),
+                   
+                      data: <%= 
+all_tasks.map{ |n| 100.0/Grading.where(ready:true,submission_id: Submission.where(exercise_task_id: n)).pluck(:points).map {|e| e > 0 ? 1 : 0}.sum.to_f*Grading.where(ready:true,submission_id: Submission.where(exercise_task_id: n)).pluck(:points).map {|e| e > bound*ExerciseTask.find(n).max_points ? 1 : 0}.sum} %>  
+                  },
+              
+          <% end %>
+        
+          ]
+}
+          });
+                   
+
+
+               var myLineChart = new Chart(document.getElementById("points_distribution"), {
+             type: 'radar',
+ title: {
+            display: true,
+            text: 'Punkte pro Fachsemester'
+        },
+
+              data: {
+    labels: <%= (1..7).to_a %>,
+    datasets: [
+       <% ExerciseSheet.where(course_id:1).order(:order).each do |sheet| %>
+
+        {
+            label: "Blatt <%= sheet.order %>",
+            backgroundColor: "rgba(179,181,198,0.2)",
+            borderColor: getscheme("large",0)[<%= sheet.order %>],
+
+            pointBorderColor: "#fff",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(179,181,198,1)",
+            data: <%= (1..7).map{ |n| Grading.where(ready:true,exercise_sheet_id: sheet.id, submission_id:Submission.where(user_id: User.where(semester: n).pluck(:id)).pluck(:id)).sum(:points)/Grading.where(ready:true,exercise_sheet_id: sheet.id, submission_id: Submission.where(user_id: User.where(semester: n).pluck(:id)).pluck(:id)).count.to_f}.map {|e| e ? e : 0} %>
+        },
+       	
+       <% end %>
+  
+    ]
+}
+          
+          });
+</script>
+<% end %>

@@ -1,0 +1,19 @@
+web:
+  privileged: true
+  build: .
+  ports:
+    - "3000:3000"
+  links:
+    - db
+  volumes:
+    - .:/myapp
+    - /data:/myapp/public/uploads
+  env_file: .env.web
+
+db:
+  image: postgres:9.4.1
+  ports:
+    - "5432:5432"
+
+redis:
+  image: redis

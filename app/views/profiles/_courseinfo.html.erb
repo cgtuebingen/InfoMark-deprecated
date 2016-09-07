@@ -1,0 +1,63 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><%= course.title %> </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6">nächste Abgabefrist:</div>
+          <div class="col-md-6"> <%= course.active_sheet.duedate.to_formatted_s(:long) unless course.active_sheet.nil? or course.active_sheet.duedate.blank? %>  </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">zugewiesene Übungsgruppe:</div>
+          <div class="col-md-6"><%= assigned_group(@user, course) %>
+            <%= link_to "Präferenz ändern", course_group_enrollment_preferences_path(course) %></div>
+        </div>
+        <h5 class="underlined">letzte 10 Submissions</h5>
+        <%= render 'latestsubmissions' , course: course, user: user%>
+        <h5 class="underlined"> Neue Submission für aktuelles Übungsblatt <%= course.active_sheet.order %></h5>
+        <%= render 'submissions/uploadsubmission' , sheet: course.active_sheet, user: user%>
+        <h5 class="underlined">Aufgabenblätter</h5>
+        <ul  class="list-unstyled">
+          <% visible_sheets(@user,course).each do |sheet| %>
+            <% if can? @user, :see, sheet %>
+              <li><%= glink_to "Übungsblatt Nr. #{sheet.order}", "cloud-download", exercise_sheet_path(sheet.id) %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-11">
+            <%= render 'pointstatistic', user: @user, course: course %>
+          </div>
+          <div class="row">
+            <div class="col-md-11">
+              <% if course.show_exam_approval == true %>
+                <% if course.min_points <= PointsCache.where(user: user).sum(:points) %>
+                  <div class="alert alert-success" role="alert">Mit <%= points_in_course(user, course) %> Punkten hast du die Klausurzulassung (<%= course.min_points %> Punkte) erreich! </div>
+                <% else %>
+                  <div class="alert alert-danger" role="alert">Mit <%= points_in_course(user, course) %> Punkten hast du leider <i>nicht</i> die Klausurzulassung (<%= course.min_points %> Punkte) erreich. Bitte überprüfe zeitnah, ob Unstimmigkeiten bei den Bewertungen existieren. In diesem Fall  kontaktiere uns bzw. deinen Tutor.</div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-11">
+            <%= render 'examstatistic', user: @user, course: course %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <% if can? current_user, :see, course  %>
+          <%= link_to 'Kurs anzeigen', course, :class => "btn btn-default" %>
+          <% if can? current_user, :manage, @current_exercise_sheet %>
+            <%= link_to 'Aufgabenblatt hinzufügen',new_course_exercise_sheet_path(course), :class => "btn btn-default" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

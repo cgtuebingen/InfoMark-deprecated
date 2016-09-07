@@ -1,0 +1,29 @@
+<%= bootstrap_form_for(@current_exercise_sheet) do |f| %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= f.hidden_field :course_id %>
+    </div>
+    <div class="col-md-4">
+      <%= f.hidden_field :user_id %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <%= f.datetime_picker :publish, label: "Veröffentlichung" %>
+    </div>
+    <div class="col-md-5">
+      <%= f.datetime_picker :duedate, label: "Deadline" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.number_field :order, label:" Aufgabenblatt Nr." %>
+    </div>
+  </div>
+  <%= f.file_field :file , label: "Aufgabenblatt - ZIP" %>
+  <%= f.text_area :description, rows: 40, label:"zusätzliche Hinweise für Studenten" %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $(document).on('ready page:change', function () {$('.bootstrap_form-datetimepicker').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});});
+</script>
