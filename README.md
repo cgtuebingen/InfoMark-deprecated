@@ -1,4 +1,45 @@
+The InfoMark application is based on:
+* RubyOnRails as a webframework
+* Resque for background processing of testing code submissions and zipping files for tutors
+* Redis for communications between the web-app and Resque
+* Docker for sandboxing the test environment of submissions
 
-### Installing Ruby
+![screenshot](https://cgtuebingen.github.io/InfoMark/assets/img/profile.PNG)
 
-see wiki
+Please refer to the infomark-worker repository.
+
+Environment-Variables
+-----------------------
+
+To configure infomark we need to setup several environment variables:
+
+* INFOMARK_DATADIR, this is the actual place where the submissions and uploads are stored
+* INFOMARK_DOMAIN_NAME, will be the sender for outgoing mails
+* INFOMARK_MAIL_REGEX, we just allowed to register accounts using mails matching 
+`/\A[^@]+@(?:student\.|)uni-tuebingen.de/`
+* SECRET_KEY, for running the devise-gem and pre-compile assets
+
+HowTo Run - Locally
+-----------------------
+
+First clone this repository to your place by
+
+    git clone https://github.com/cgtuebingen/InfoMark.git
+
+This package is shipped with a docker-compose configuration which allows you to use this app locally. Warning: This local version inside docker-compose uses Webrick which is single-threaded and not for production! Please refer to our Capistrano file for zero-deploy via Capistrano.
+
+To build everything locally just run
+
+    cd InfoMark
+    docker-compose build
+    docker-compose up
+
+Before open your browser you need to create the database. Therefore open **another** terminal in the **same** directoy and paste
+
+    docker-compose run web rake db:create
+    docker-compose run web rake db:migrate
+
+Now open http://localhost:3000 your web-browser. You should see the login-area. By default we add an user with login-credentials:
+
+email: root@root.com
+passwd: toor
