@@ -9,15 +9,16 @@ services:
       - db
     volumes:
       - .:/myapp
-      # - ./public/assets:/myapp/public/assets
       - upload-data:/myapp/public/uploads
       - assets:/myapp/public/assets/
-      # - ./production_assets:/myapp/public/assets/
+      - /var/run/docker.sock:/var/run/docker.sock
     env_file: .env.web
     command: bundle exec unicorn -c config/containers/unicorn.rb -E production;
     environment:
       - RAILS_ENV=production
       - RAILS_ROOT=/myapp
+      - INFOMARK_UPLOAD_DIR=/myapp/public/uploads
+      - RAILS_SERVE_STATIC_FILES=TRUE
       - PORT=3000
     depends_on:
       - db
@@ -31,15 +32,16 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
   redis:
     image: redis
-  nginx:
-    image: nginx
+  shell:
+    image: ubuntu
     links:
       - web
+      - redis
+      - db
     volumes:
-      - ./config/nginx.conf:/etc/nginx/sites-enabled/infomark.conf:ro
-      - assets:/assets/
-    ports:
-      - "3001:80"
+      - assets:/assets
+      - upload-data:/myapp/public/uploads
+      - .:/myapp
 
 volumes:
   upload-data:

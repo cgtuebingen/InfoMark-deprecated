@@ -4,7 +4,7 @@
 <p id="notice"><%= notice %></p>
 <div class="pull-right">
   <div class="btn-group btn-group-sm" role="group" aria-label="...">
-    <%= link_to 'new course', new_course_path, class: "btn btn-default" if can? current_user, :manage, course %>
+    <%= link_to 'new course', new_course_path, class: "btn btn-default" if can? current_user, :manage, @course %>
   </div>
 </div>
 <h1>Angebotene Kurse</h1>

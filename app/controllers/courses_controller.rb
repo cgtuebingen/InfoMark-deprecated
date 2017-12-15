@@ -11,6 +11,7 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
+    @course = Course.new
     @courses = Course.all
   end
 

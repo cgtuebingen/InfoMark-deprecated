@@ -7,3 +7,9 @@ u = User.new(first_name: 'root',
 u.skip_confirmation!
 u.skip_confirmation_notification!
 u.save(:validate => false)
+
+
+c = Course.new(
+  title: "Kurs"
+)
+c.save
