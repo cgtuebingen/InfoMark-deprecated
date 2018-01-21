@@ -47,3 +47,5 @@ public/uploads
 
 deploy
 deploy.pub
+
+server/log/*.log

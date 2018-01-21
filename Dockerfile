@@ -7,11 +7,11 @@ RUN mkdir /myapp
 
 
 WORKDIR /tmp
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
+COPY server/Gemfile Gemfile
+COPY server/Gemfile.lock Gemfile.lock
 RUN bundle install
 
-ADD . /myapp
+ADD ./server /myapp
 WORKDIR /myapp
 
 ENV INFOMARK_DOMAIN_NAME=localhost
