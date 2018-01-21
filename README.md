@@ -33,17 +33,17 @@ This package is shipped with a docker-compose configuration which allows you to 
 To build everything locally just run
 
 ```console
-user@host $ cd InfoMark
-user@host $ docker-compose build
-user@host $ docker-compose up
+user@host $ cd InfoMark/server
+user@host $ sudo docker-compose build
+user@host $ sudo docker-compose run web rake db:create
+user@host $ sudo docker-compose run web rake db:migrate
+user@host $ sudo docker-compose run web rake db:seed
 ```
 
-Before open your browser you need to create the database. Therefore open **another** terminal in the **same** directoy and paste
+Now everything is ready
 
 ```console
-user@host $ docker-compose run web rake db:create
-user@host $ docker-compose run web rake db:migrate
-user@host $ docker-compose run web rake db:seed
+user@host $ sudo docker-compose up
 ```
 
 Now open http://localhost:3000 your web-browser. You should see the login-area. By default we add an user with login-credentials:
