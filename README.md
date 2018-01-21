@@ -24,22 +24,31 @@ HowTo Run - Locally
 
 First clone this repository to your place by
 
-    git clone https://github.com/cgtuebingen/InfoMark.git
+```console
+user@host $ git clone https://github.com/cgtuebingen/InfoMark.git
+```
 
 This package is shipped with a docker-compose configuration which allows you to use this app locally. Warning: This local version inside docker-compose uses Webrick which is single-threaded and not for production! Please refer to our Capistrano file for zero-deploy via Capistrano.
 
 To build everything locally just run
 
-    cd InfoMark
-    docker-compose build
-    docker-compose up
+```console
+user@host $ cd InfoMark
+user@host $ docker-compose build
+user@host $ docker-compose up
+```
 
 Before open your browser you need to create the database. Therefore open **another** terminal in the **same** directoy and paste
 
-    docker-compose run web rake db:create
-    docker-compose run web rake db:migrate
+```console
+user@host $ docker-compose run web rake db:create
+user@host $ docker-compose run web rake db:migrate
+user@host $ docker-compose run web rake db:seed
+```
 
 Now open http://localhost:3000 your web-browser. You should see the login-area. By default we add an user with login-credentials:
 
+```
 email: root@root.com
 passwd: toor
+```
