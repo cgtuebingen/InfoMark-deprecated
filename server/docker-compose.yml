@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  web:
+  web: &web
     build: .
     ports:
       - "3000:3000"
@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/myapp
       - upload-data:/myapp/public/uploads
-      - assets:/myapp/public/assets/
+      - assets-data:/myapp/public/assets/
       - /var/run/docker.sock:/var/run/docker.sock
     env_file: .env.web
     command: bundle exec unicorn -c config/containers/unicorn.rb -E production;
@@ -22,6 +22,30 @@ services:
       - PORT=3000
     depends_on:
       - db
+  submission_worker:
+    build: .
+    links:
+      - db
+    volumes:
+      - .:/myapp
+      - upload-data:/myapp/public/uploads
+      - assets-data:/myapp/public/assets/
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file: .env.web
+    depends_on:
+      - db
+    command: bundle exec rake resque:work QUEUE=* BACKGROUND=yes VERBOSE=1 INTERVAL=5 TERM_CHILD=1 FORK_PER_JOB=false
+    ports: []
+    environment:
+      - RAILS_ENV=production
+      - RAILS_ROOT=/myapp
+      - INFOMARK_UPLOAD_DIR=/myapp/public/uploads
+      - RAILS_SERVE_STATIC_FILES=TRUE
+      - PORT=3000
+      - QUEUE=submission_queue
+      - BACKGROUND=yes
+      - VERBOSE=1
+      - INTERVAL=5
   db:
     image: postgres:9.3
     environment:
@@ -39,13 +63,13 @@ services:
       - redis
       - db
     volumes:
-      - assets:/assets
+      - assets-data:/assets
       - upload-data:/myapp/public/uploads
       - .:/myapp
 
 volumes:
   upload-data:
   postgres-data:
-  assets:
+  assets-data:
 
 

@@ -52,7 +52,9 @@ gem 'resque', :require => "resque/server"
 gem "six"
 
 gem 'redcarpet', '~> 3.0.0'
-gem 'pg'
+group :production do
+  gem 'pg', '~> 0.18.4'
+end
 gem 'rmagick'
 
 gem 'momentjs-rails', '>= 2.9.0'
