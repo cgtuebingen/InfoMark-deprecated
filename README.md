@@ -1,4 +1,7 @@
-**This repo is deprecated. We will publish our rewrite in Go+ELM soon.**
+# Deprecation Warning
+
+> This repo is deprecated. 
+> We will publish our rewrite in Go+ELM soon.
 
 The InfoMark application is based on:
 * RubyOnRails as a webframework
