@@ -1,3 +1,5 @@
+**This repo is deprecated. We will publish our rewrite in Go+ELM soon.**
+
 The InfoMark application is based on:
 * RubyOnRails as a webframework
 * Resque for background processing of testing code submissions and zipping files for tutors
